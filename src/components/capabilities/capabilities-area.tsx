@@ -152,7 +152,7 @@ export default function CapabilitiesArea() {
                     onMouseLeave={() => setActiveId(cap.id)}
                     key={index}
                   >
-                    <a href={cap.link}>
+                    <a href={cap.link || "#"}>
                       <div className="capability-box-inner">
                         <div className="content">
                           <h3
