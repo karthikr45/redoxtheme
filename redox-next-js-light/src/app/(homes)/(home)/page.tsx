@@ -1,90 +1,74 @@
-import AboutOne from "@/components/about/about-one";
-import ClientArea from "@/components/client/client-area";
-import CtaArea from "@/components/cta/cta-area";
-import FunFactArea from "@/components/fun-fact/fun-fact-area";
-import HeroOne from "@/components/hero/hero-one";
-import ParallaxImg from "@/components/parallax-img/parallax-img";
-import ProductivityArea from "@/components/productivity/productivity-area";
-import ServiceArea from "@/components/services/service-area";
-import TextSlider from "@/components/text-slider/text-slider";
-import VideoBox from "@/components/video/video-box";
-import WorkArea from "@/components/work/work-area";
+import { Metadata } from "next";
 import MainWrapper from "@/components/wrapper/main-wrapper";
-import Footer from "@/layout/footer/footer-one";
-import Header from "@/layout/header/header-one";
-import DigitalAgencyWrapper from "./_components/digital-agency-wrapper";
+import StartupAgencyWrapper from "../startup-agency/_components/startup-agency-wrapper";
+import HeaderFive from "@/layout/header/header-five";
+import HeroFive from "@/components/hero/hero-five";
+import WorkAreaFour from "@/components/work/work-area-4";
+import MarqueeText from "@/components/marquee/marquee-text";
+import AboutFour from "@/components/about/about-four";
+import ServiceAreaFive from "@/components/services/service-area-5";
+import CtaAreaFour from "@/components/cta/cta-area-4";
+import FooterFour from "@/layout/footer/footer-four";
 import CustomCursor from "@/components/common/custom-cursor";
+
+export const metadata: Metadata = {
+  title: "Redox - Startup Agency and Portfolio Next js Template",
+  description:
+    "Redox is a startup agency and portfolio template built with Next.js, designed to showcase your work and services effectively.",
+};
 
 export default function HomePage() {
   return (
     <>
-
       {/* custom cursor start */}
       <CustomCursor />
       {/* custom cursor end */}
 
       {/* Header area start */}
-      <Header />
+      <HeaderFive />
       {/* Header area end */}
 
       {/* Main wrapper start */}
-      <MainWrapper bodyCls={['body-wrapper','body-digital-agency', 'font-heading-instrumentsans-medium']}>
-        <DigitalAgencyWrapper>
+      <MainWrapper
+        bodyCls={[
+          "body-wrapper",
+          "body-startup-agency",
+          "font-heading-bdogrotesk-regular",
+        ]}
+      >
+        <StartupAgencyWrapper>
           <main>
 
             {/* Hero area start */}
-            <HeroOne />
+            <HeroFive />
             {/* Hero area end */}
 
-            {/* About area start */}
-            <AboutOne />
-            {/* About area end */}
+            {/* work area start */}
+            <WorkAreaFour />
+            {/* work area end */}
 
-            {/* Video area start */}
-            <VideoBox />
-            {/* Video area end */}
+            {/* marquee area start */}
+            <MarqueeText />
+            {/* marquee area end */}
 
-            {/* Work area start */}
-            <section className="work-area">
-              {/* Text slider start */}
-              <TextSlider />
-              {/* Text slider end */}
+            {/* about area start */}
+            <AboutFour />
+            {/* about area end */}
 
-              {/* Work area start */}
-              <WorkArea />
-              {/* Work area end */}
-            </section>
-            {/* Work area end */}
+            {/* service area start */}
+            <ServiceAreaFive />
+            {/* service area end */}
 
-            {/* Service area start */}
-            <ServiceArea />
-            {/* Service area end */}
+            {/* cta area start */}
+            <CtaAreaFour />
+            {/* cta area end*/}
 
-            {/* Fun fact area start */}
-            <FunFactArea />
-            {/* Fun fact area end */}
-
-            {/* Client area start */}
-            <ClientArea isHome={true} />
-            {/* Client area end */}
-
-            {/* Cta area start */}
-            <CtaArea />
-            {/* Cta area end */}
-
-            {/* Productivity area start */}
-            <ProductivityArea />
-            {/* Productivity area end */}
-
-            {/* Parallax image start */}
-            <ParallaxImg />
-            {/* Parallax image end */}
           </main>
 
           {/* Footer area start */}
-          <Footer />
+          <FooterFour />
           {/* Footer area end */}
-        </DigitalAgencyWrapper>
+        </StartupAgencyWrapper>
       </MainWrapper>
       {/* Main wrapper end */}
     </>
