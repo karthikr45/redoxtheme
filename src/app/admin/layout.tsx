@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 
 const sidebarItems = [
   { label: "Dashboard", href: "/admin", icon: "🏠" },
+  { label: "Pages", href: "/admin/pages", icon: "📄" },
   { label: "Menu / Navigation", href: "/admin/menu", icon: "📋" },
   { label: "Hero Section", href: "/admin/hero", icon: "🎯" },
   { label: "About Section", href: "/admin/about", icon: "ℹ️" },

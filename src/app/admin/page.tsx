@@ -3,6 +3,12 @@ import Link from "next/link";
 
 const sections = [
   {
+    title: "Pages",
+    description: "Browse all page templates with live preview. Select which page to use as your home page",
+    href: "/admin/pages",
+    icon: "📄",
+  },
+  {
     title: "Menu / Navigation",
     description: "Add, edit or reorder menu items in the header navigation",
     href: "/admin/menu",

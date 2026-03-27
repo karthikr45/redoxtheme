@@ -13,6 +13,7 @@ const VALID_SECTIONS = [
   "footer",
   "marquee",
   "menu",
+  "site-settings",
 ];
 
 export async function GET(request: NextRequest) {
