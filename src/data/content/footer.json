@@ -1,0 +1,13 @@
+{
+  "navItems": [
+    { "label": "Studio", "href": "/contact" },
+    { "label": "Works", "href": "/contact" },
+    { "label": "Services", "href": "/contact" },
+    { "label": "Themeforest", "href": "/contact" },
+    { "label": "Webflow", "href": "/contact" }
+  ],
+  "copyrightText": "All rights reserved by",
+  "copyrightHolder": "RavexTheme",
+  "copyrightLink": "https://themeforest.net/user/ravextheme",
+  "startYear": "2019"
+}

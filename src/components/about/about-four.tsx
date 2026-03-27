@@ -1,6 +1,7 @@
 import Image from "next/image";
 import gallery_img from "@/assets/imgs/gallery/image-51.webp";
 import Link from "next/link";
+import aboutContent from "@/data/content/about.json";
 
 export default function AboutFour() {
   return (
@@ -11,7 +12,7 @@ export default function AboutFour() {
             <div className="section-title-wrapper">
               <div className="subtitle-wrapper">
                 <span className="section-subtitle">
-                  The studio
+                  {aboutContent.subtitle}
                   <svg
                     viewBox="0 0 99 7"
                     fill="none"
@@ -28,18 +29,17 @@ export default function AboutFour() {
               </div>
               <div className="title-wrapper">
                 <h2 className="section-title font-bdogrotesk-regular fade-anim">
-                  We’re a design and development studio since 2017 who craft
-                  digital masterpiece products.
+                  {aboutContent.heading}
                 </h2>
                 <div className="btn-wrapper fade-anim">
-                  <Link href="/about" className="rr-btn">
+                  <Link href={aboutContent.primaryButtonLink} className="rr-btn">
                     <span className="btn-wrap">
-                      <span className="text-one">Learn more us</span>
-                      <span className="text-two">Learn more us</span>
+                      <span className="text-one">{aboutContent.primaryButtonLabel}</span>
+                      <span className="text-two">{aboutContent.primaryButtonLabel}</span>
                     </span>
                   </Link>
-                  <Link href="/portfolio" className="rr-btn-underline">
-                    Browse all products
+                  <Link href={aboutContent.secondaryButtonLink} className="rr-btn-underline">
+                    {aboutContent.secondaryButtonLabel}
                     <span className="icon">
                       <Image
                         src="/assets/imgs/icon/icon-5.webp"

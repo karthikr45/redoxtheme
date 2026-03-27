@@ -1,57 +1,6 @@
 import React from "react";
 import Image from "next/image";
-
-interface ServiceItem {
-  id: string;
-  number: string;
-  title: string;
-  text: string;
-  image: string;
-  link: string;
-}
-
-const services: ServiceItem[] = [
-  {
-    id: "1",
-    number: "(001)",
-    title: "UI/UX Design",
-    text: "We help you build successful products by understanding your market and users.",
-    image: "/assets/imgs/project/image-47.webp",
-    link: "/service-details",
-  },
-  {
-    id: "2",
-    number: "(002)",
-    title: "Web Development",
-    text: "We help you build successful products by understanding your market and users.",
-    image: "/assets/imgs/project/image-48.webp",
-    link: "/service-details",
-  },
-  {
-    id: "3",
-    number: "(003)",
-    title: "Web Design",
-    text: "We help you build successful products by understanding your market and users.",
-    image: "/assets/imgs/project/image-49.webp",
-    link: "/service-details",
-  },
-  {
-    id: "4",
-    number: "(004)",
-    title: "Branding Design",
-    text: "We help you build successful products by understanding your market and users.",
-    image: "/assets/imgs/project/image-50.webp",
-    link: "/service-details",
-  },
-  {
-    id: "5",
-    number: "(005)",
-    title: "Webflow Development",
-    text: "We help you build successful products by understanding your market and users.",
-    image: "/assets/imgs/project/image-51.webp",
-    link: "/service-details",
-  },
-];
+import servicesContent from "@/data/content/services.json";
 
 type IProps = {
   spacing?: string;
@@ -67,7 +16,7 @@ const ServiceAreaFive = ({spacing='section-spacing-top', title_font='font-bdogro
             <div className="section-title-wrapper">
               <div className="subtitle-wrapper">
                 <span className="section-subtitle">
-                  Services
+                  {servicesContent.subtitle}
                   <svg
                     viewBox="0 0 99 7"
                     fill="none"
@@ -84,7 +33,7 @@ const ServiceAreaFive = ({spacing='section-spacing-top', title_font='font-bdogro
               </div>
               <div className="title-wrapper tt_title_anim">
                 <h2 className={`section-title ${title_font}`}>
-                  Services we provide
+                  {servicesContent.heading}
                 </h2>
               </div>
             </div>
@@ -93,13 +42,12 @@ const ServiceAreaFive = ({spacing='section-spacing-top', title_font='font-bdogro
           <div className="services-wrapper-box">
             <div className="text-wrapper fade-anim">
               <p className="info-text">
-                We are here to build solid and courageous brands that can leave
-                a strong mark on the world.
+                {servicesContent.description}
               </p>
             </div>
 
             <div className="services-wrapper-5">
-              {services.map((service) => (
+              {servicesContent.items.map((service) => (
                 <a href={service.link} key={service.id}>
                   <div className="service-box fade-anim">
                     <div className="count">

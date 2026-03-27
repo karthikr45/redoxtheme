@@ -1,0 +1,47 @@
+{
+  "subtitle": "Services",
+  "heading": "Services we provide",
+  "description": "We are here to build solid and courageous brands that can leave a strong mark on the world.",
+  "items": [
+    {
+      "id": "1",
+      "number": "(001)",
+      "title": "UI/UX Design",
+      "text": "We help you build successful products by understanding your market and users.",
+      "image": "/assets/imgs/project/image-47.webp",
+      "link": "/service-details"
+    },
+    {
+      "id": "2",
+      "number": "(002)",
+      "title": "Web Development",
+      "text": "We help you build successful products by understanding your market and users.",
+      "image": "/assets/imgs/project/image-48.webp",
+      "link": "/service-details"
+    },
+    {
+      "id": "3",
+      "number": "(003)",
+      "title": "Web Design",
+      "text": "We help you build successful products by understanding your market and users.",
+      "image": "/assets/imgs/project/image-49.webp",
+      "link": "/service-details"
+    },
+    {
+      "id": "4",
+      "number": "(004)",
+      "title": "Branding Design",
+      "text": "We help you build successful products by understanding your market and users.",
+      "image": "/assets/imgs/project/image-50.webp",
+      "link": "/service-details"
+    },
+    {
+      "id": "5",
+      "number": "(005)",
+      "title": "Webflow Development",
+      "text": "We help you build successful products by understanding your market and users.",
+      "image": "/assets/imgs/project/image-51.webp",
+      "link": "/service-details"
+    }
+  ]
+}

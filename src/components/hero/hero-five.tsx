@@ -1,6 +1,7 @@
 import Image from "next/image";
 import shape from '@/assets/imgs/shape/shape-19.webp';
 import Link from "next/link";
+import heroContent from "@/data/content/hero.json";
 
 export default function HeroFive() {
   return (
@@ -17,7 +18,7 @@ export default function HeroFive() {
             >
               <video className="title-video" loop muted autoPlay playsInline>
                 <source
-                  src="https://rrdevs.net/project-video/xfire.webm"
+                  src={heroContent.videoUrl}
                   type="video/mp4"
                 />
               </video>
@@ -26,22 +27,21 @@ export default function HeroFive() {
               <div className="section-title-wrapper">
                 <div className="title-wrapper fade-anim">
                   <h1 className="section-title font-bdogrotesk-regular char-anim">
-                    Where visionary concepts come to life
+                    {heroContent.heading}
                   </h1>
                 </div>
               </div>
               <div className="text-btn-wrapper fade-anim" data-delay="0.60">
                 <div className="text-wrapper fade-anim" data-delay="0.75">
                   <p className="text">
-                    We’re a leading digital product agency focused on branding,
-                    UI/UX design, mobile, and web development.
+                    {heroContent.description}
                   </p>
                 </div>
                 <div className="btn-wrapper fade-anim" data-delay="0.90">
-                  <Link href="/contact" className="rr-btn">
+                  <Link href={heroContent.buttonLink} className="rr-btn">
                     <span className="btn-wrap">
-                      <span className="text-one">Send massage</span>
-                      <span className="text-two">Send massage</span>
+                      <span className="text-one">{heroContent.buttonLabel}</span>
+                      <span className="text-two">{heroContent.buttonLabel}</span>
                     </span>
                   </Link>
                 </div>

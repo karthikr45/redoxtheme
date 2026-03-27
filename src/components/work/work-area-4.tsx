@@ -1,45 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-const workData = [
-  {
-    title: "Redox Digital Agency HTML Template",
-    tag: "WordPress, Themeforest",
-    date: "(2025)",
-    image: "/assets/imgs/project/image-30.webp",
-  },
-  {
-    title: "Redox Digital Agency Theme",
-    tag: "Themeforest",
-    date: "(2025)",
-    image: "/assets/imgs/project/image-31.webp",
-  },
-  {
-    title: "Redox Digital Agency HTML Template",
-    tag: "WordPress, Themeforest",
-    date: "(2025)",
-    image: "/assets/imgs/project/image-32.webp",
-  },
-  {
-    title: "Redox Digital Agency Theme",
-    tag: "Themeforest",
-    date: "(2025)",
-    image: "/assets/imgs/project/image-33.webp",
-  },
-  {
-    title: "Redox Digital Agency HTML Template",
-    tag: "WordPress, Themeforest",
-    date: "(2025)",
-    image: "/assets/imgs/project/image-34.webp",
-  },
-  {
-    title: "Redox Digital Agency Theme",
-    tag: "Themeforest",
-    date: "(2025)",
-    image: "/assets/imgs/project/image-35.webp",
-  },
-];
+import worksContent from "@/data/content/works.json";
 
 const WorkAreaFour = () => {
   return (
@@ -50,7 +12,7 @@ const WorkAreaFour = () => {
             <div className="section-title-wrapper">
               <div className="subtitle-wrapper">
                 <span className="section-subtitle">
-                  Products
+                  {worksContent.subtitle}
                   <svg
                     viewBox="0 0 99 7"
                     fill="none"
@@ -66,14 +28,14 @@ const WorkAreaFour = () => {
               </div>
               <div className="title-wrapper">
                 <h2 className="section-title font-bdogrotesk-regular fade-anim">
-                  The work we do, and our favorite ones
+                  {worksContent.heading}
                 </h2>
                 <div className="btn-wrapper fade-anim">
                   <Link
-                    href="/service-details"
+                    href={worksContent.buttonLink}
                     className="rr-btn-underline"
                   >
-                    Browse all products
+                    {worksContent.buttonLabel}
                     <span className="icon">
                       <Image
                         src="/assets/imgs/icon/icon-5.webp"
@@ -90,7 +52,7 @@ const WorkAreaFour = () => {
 
           <div className="works-wrapper-box section-spacing-top">
             <div className="works-wrapper-4 fade-anim">
-              {workData.map((work, index) => (
+              {worksContent.items.map((work, index) => (
                 <div className="work-box" key={index}>
                   <div className="thumb">
                     <div

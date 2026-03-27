@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import ctaContent from "@/data/content/cta.json";
 
 export default function CtaAreaFour() {
   return (
@@ -10,8 +11,8 @@ export default function CtaAreaFour() {
             <div className="section-title-wrapper">
               <div className="title-wrapper">
                 <h2 className="section-title font-bdogrotesk-regular">
-                  <Link href="/contact">
-                    Let’s
+                  <Link href={ctaContent.link}>
+                    {ctaContent.headingLine1}
                     <span className="icon">
                       <Image
                         className="first"
@@ -31,7 +32,7 @@ export default function CtaAreaFour() {
                       />
                     </span>{" "}
                     <br />
-                    build a brand now
+                    {ctaContent.headingLine2}
                   </Link>
                 </h2>
               </div>

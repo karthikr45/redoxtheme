@@ -1,14 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import logo from '@/assets/imgs/logo/logo-2.png';
-
-const navItems: { label: string; href: string }[] = [
-  { label: "Studio", href: "/contact" },
-  { label: "Works", href: "/contact" },
-  { label: "Services", href: "/contact" },
-  { label: "Themeforest", href: "/contact" },
-  { label: "Webflow", href: "/contact" },
-];
+import footerContent from "@/data/content/footer.json";
 
 export default function FooterFour() {
   return (
@@ -30,7 +23,7 @@ export default function FooterFour() {
 
             <div className="footer-widget-box">
               <ul className="footer-nav-list">
-                {navItems.map((item, idx) => (
+                {footerContent.navItems.map((item, idx) => (
                   <li key={idx}>
                     <Link href={item.href}>{item.label}</Link>
                   </li>
@@ -46,13 +39,13 @@ export default function FooterFour() {
           <div className="copyright-area-inner">
             <div className="copyright-text">
               <p className="text">
-                © 2019 - {new Date().getFullYear()} | All rights reserved by{" "}
+                &copy; {footerContent.startYear} - {new Date().getFullYear()} | {footerContent.copyrightText}{" "}
                 <a
-                  href="https://themeforest.net/user/ravextheme"
+                  href={footerContent.copyrightLink}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  RavexTheme
+                  {footerContent.copyrightHolder}
                 </a>
               </p>
             </div>
