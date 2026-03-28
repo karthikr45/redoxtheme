@@ -74,15 +74,30 @@ export function EditModeProvider({ children }: { children: React.ReactNode }) {
         const data = await res.json();
 
         for (const change of changes) {
+          let value = change.value;
+
+          // Handle image uploads (base64 data URLs)
+          if (value.startsWith("data:image/")) {
+            const blob = await fetch(value).then((r) => r.blob());
+            const formData = new FormData();
+            formData.append("file", blob, "image.png");
+            const uploadRes = await fetch("/api/admin/upload", {
+              method: "POST",
+              body: formData,
+            });
+            const uploadData = await uploadRes.json();
+            if (uploadData.success) {
+              value = uploadData.url;
+            }
+          }
+
           if (change.index !== undefined && Array.isArray(data.items)) {
-            // Array item field update
             const [itemField] = change.field.split(".");
             if (data.items[change.index]) {
-              data.items[change.index][itemField] = change.value;
+              data.items[change.index][itemField] = value;
             }
           } else {
-            // Direct field update
-            data[change.field] = change.value;
+            data[change.field] = value;
           }
         }
 
