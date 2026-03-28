@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import HeaderTwo from "@/layout/header/header-two";
+import HeaderTwo from "@/layout/header/header-two-server";
 import MainWrapper from "@/components/wrapper/main-wrapper";
 import ContactWrapper from "./_components/contact-wrapper";
 import ContactArea from "./_components/contact-area";

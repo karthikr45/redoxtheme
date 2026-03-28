@@ -1,11 +1,17 @@
-import menuData from "@/data/menu-data";
 import Link from "next/link";
 
-export default function MainMenu() {
+interface MenuItem {
+  title: string;
+  href: string;
+  children?: MenuItem[];
+}
+
+export default function MainMenu({ menuData }: { menuData?: MenuItem[] }) {
+  const items = menuData || [];
   return (
     <nav className="main-menu d-none d-xl-block">
       <ul>
-        {menuData.map((item, index) => (
+        {items.map((item, index) => (
           <li
             key={index}
             className={item.children ? 'menu-item-has-children' : ''}
@@ -13,8 +19,7 @@ export default function MainMenu() {
             <Link href={item.href}>{item.title}</Link>
             {item.children && (
               <ul
-                className={`dp-menu ${item.title === 'Home' ? 'col-2' : ''
-                  }`}
+                className={`dp-menu ${item.title === 'Home' ? 'col-2' : ''}`}
               >
                 {item.children.map((child, childIndex) => (
                   <li key={childIndex}>
@@ -27,5 +32,5 @@ export default function MainMenu() {
         ))}
       </ul>
     </nav>
-  )
+  );
 }

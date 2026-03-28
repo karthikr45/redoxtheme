@@ -49,6 +49,46 @@ export async function POST(request: NextRequest) {
         { $set: { key: "menu", data: body, updatedAt: new Date() } },
         { upsert: true }
       );
+
+      // Auto-create pages for new menu items that don't exist yet
+      const pages = await getPages();
+      const menuItems = Array.isArray(body) ? body : [];
+      for (const item of menuItems) {
+        const slug = item.href?.replace(/^\//, "") || "";
+        if (slug && slug !== "#") {
+          const existing = await pages.findOne({ slug });
+          if (!existing) {
+            await pages.insertOne({
+              slug,
+              title: item.title || slug,
+              sections: [{ type: "page-title", title: item.title || slug }],
+              versions: [],
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            });
+          }
+        }
+        // Also check sub-items
+        if (item.children) {
+          for (const child of item.children) {
+            const childSlug = child.href?.replace(/^\//, "") || "";
+            if (childSlug && childSlug !== "#") {
+              const existingChild = await pages.findOne({ slug: childSlug });
+              if (!existingChild) {
+                await pages.insertOne({
+                  slug: childSlug,
+                  title: child.title || childSlug,
+                  sections: [{ type: "page-title", title: child.title || childSlug }],
+                  versions: [],
+                  createdAt: new Date(),
+                  updatedAt: new Date(),
+                });
+              }
+            }
+          }
+        }
+      }
+
       return NextResponse.json({ success: true });
     }
 

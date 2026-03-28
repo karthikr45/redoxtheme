@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import HeaderTwo from "@/layout/header/header-two";
+import HeaderTwo from "@/layout/header/header-two-server";
 import MainWrapper from "@/components/wrapper/main-wrapper";
 import CreativeAgencyWrapper from "./_components/creative-agency-wrapper";
 import HeroTwo from "@/components/hero/hero-two";

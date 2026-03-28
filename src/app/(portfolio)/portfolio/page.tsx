@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import HeaderTwo from "@/layout/header/header-two";
+import HeaderTwo from "@/layout/header/header-two-server";
 import MainWrapper from "@/components/wrapper/main-wrapper";
 import FooterInner from "@/layout/footer/footer-inner";
 import PortfolioWrapper from "./_components/portfolio-wrapper";

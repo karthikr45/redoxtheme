@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import MainWrapper from "@/components/wrapper/main-wrapper";
 import StartupAgencyWrapper from "../startup-agency/_components/startup-agency-wrapper";
-import HeaderFive from "@/layout/header/header-five";
+import HeaderFive from "@/layout/header/header-five-server";
 import HeroFive from "@/components/hero/hero-five";
 import WorkAreaFour from "@/components/work/work-area-4";
 import MarqueeText from "@/components/marquee/marquee-text";

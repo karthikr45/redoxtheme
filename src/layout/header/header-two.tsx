@@ -7,7 +7,13 @@ import logo from "@/assets/imgs/logo/logo-2.png";
 import icon from "@/assets/imgs/icon/icon-2.webp";
 import SideToggle from "@/components/common/side-toggle";
 
-export default function HeaderTwo() {
+interface MenuItem {
+  title: string;
+  href: string;
+  children?: MenuItem[];
+}
+
+export default function HeaderTwoClient({ menuData }: { menuData?: MenuItem[] }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   return (
     <>
@@ -17,22 +23,17 @@ export default function HeaderTwo() {
             <div className="header-area-2__inner">
               <div className="header__logo">
                 <Link href="/">
-                  <Image
-                    src={logo}
-                    className="normal-logo"
-                    alt="Site Logo"
-                    style={{ height: "auto" }}
-                  />
+                  <Image src={logo} className="normal-logo" alt="Site Logo" style={{ height: "auto" }} />
                 </Link>
               </div>
               <div className="header__nav pos-center">
-                <MainMenu />
+                <MainMenu menuData={menuData} />
               </div>
               <div className="header__button">
                 <Link href="/contact" className="rr-btn">
                   <span className="btn-wrap">
-                    <span className="text-one">Let’s Talk</span>
-                    <span className="text-two">Let’s Talk</span>
+                    <span className="text-one">Let&apos;s Talk</span>
+                    <span className="text-two">Let&apos;s Talk</span>
                   </span>
                 </Link>
               </div>
@@ -45,13 +46,11 @@ export default function HeaderTwo() {
           </div>
         </div>
       </header>
-
-      {/* side toggle bar */}
       <SideToggle
         isOpen={isMobileMenuOpen}
         onSideToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        menuData={menuData}
       />
-      {/* side toggle bar */}
     </>
   );
 }
