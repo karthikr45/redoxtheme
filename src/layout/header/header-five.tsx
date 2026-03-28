@@ -13,7 +13,7 @@ interface MenuItem {
   children?: MenuItem[];
 }
 
-export default function HeaderFiveClient({ menuData }: { menuData?: MenuItem[] }) {
+export default function HeaderFiveClient({ menuData, logoUrl }: { menuData?: MenuItem[]; logoUrl?: string }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   return (
     <>
@@ -23,7 +23,11 @@ export default function HeaderFiveClient({ menuData }: { menuData?: MenuItem[] }
             <div className="header-area-5__inner">
               <div className="header__logo">
                 <Link href="/">
-                  <Image src={logo} className="normal-logo" alt="Site Logo" style={{ height: "auto" }} />
+                  {logoUrl ? (
+                    <img src={logoUrl} className="normal-logo" alt="Site Logo" style={{ height: "auto", maxHeight: 40 }} />
+                  ) : (
+                    <Image src={logo} className="normal-logo" alt="Site Logo" style={{ height: "auto" }} />
+                  )}
                 </Link>
               </div>
               <div className="header__nav">

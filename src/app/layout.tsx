@@ -8,6 +8,7 @@ import "@/assets/vendor/spacing.css";
 import "@/assets/vendor/meanmenu.min.css";
 import "bootstrap/scss/bootstrap.scss";
 import "./globals.scss";
+import ThemeSettings from "@/components/theme-settings";
 
 const dm_sans = DM_Sans({
   weight: ["400","500", "600", "700","800"],
@@ -144,6 +145,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${dm_sans.variable} ${instrument_sans.variable} ${bdogrotesk.variable} ${tartuffo.variable} ${tartufffo_trial.variable} ${times_now.variable} ${thunder.variable} ${Sequel_sans_roman.variable} ${Sequel_sans_medium.variable}`}>
+        <ThemeSettings />
         {children}
       </body>
     </html>

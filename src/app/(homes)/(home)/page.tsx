@@ -8,7 +8,7 @@ import MarqueeText from "@/components/marquee/marquee-text";
 import AboutFour from "@/components/about/about-four";
 import ServiceAreaFive from "@/components/services/service-area-5";
 import CtaAreaFour from "@/components/cta/cta-area-4";
-import FooterFour from "@/layout/footer/footer-four";
+import FooterFour from "@/layout/footer/footer-four-server";
 import CustomCursor from "@/components/common/custom-cursor";
 import { getPageData, getSection } from "@/lib/get-page";
 
