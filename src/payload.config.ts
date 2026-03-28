@@ -20,6 +20,7 @@ import { ContactPage } from "./collections/ContactPage";
 import { TeamPage } from "./collections/TeamPage";
 import { FaqPage } from "./collections/FaqPage";
 import { AdminUsers } from "./collections/AdminUsers";
+import { Pages } from "./collections/Pages";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -27,9 +28,6 @@ const dirname = path.dirname(filename);
 export default buildConfig({
   admin: {
     user: Users.slug,
-    routes: {
-      admin: "/payload-admin",
-    },
     meta: {
       titleSuffix: " - Redox Admin",
     },
@@ -38,7 +36,7 @@ export default buildConfig({
     },
   },
   editor: lexicalEditor(),
-  collections: [Users, Media, AdminUsers],
+  collections: [Users, Media, AdminUsers, Pages],
   globals: [
     HeroSection,
     AboutSection,
