@@ -26,6 +26,9 @@ const dirname = path.dirname(filename);
 export default buildConfig({
   admin: {
     user: Users.slug,
+    routes: {
+      admin: "/payload-admin",
+    },
     meta: {
       titleSuffix: " - Redox Admin",
     },
