@@ -1,0 +1,15 @@
+{
+  "pageTitle": "Our Team",
+  "headerText": "A team of <span>80+</span> skilled employees is working behind your creative works",
+  "headerHeading": "Our talented squad",
+  "headerDescription": "We're a diverse team that works as fancies attention to details, enjoys beers on Friday nights and aspires to design the dent in the universe.",
+  "ctaHeading": "We think out of the box when it comes to strategy, design and creative. Want to join the talented team?",
+  "ctaButtonLabel": "Send Us Now",
+  "ctaButtonLink": "/contact",
+  "members": [
+    { "name": "James David", "post": "CEO & Founder", "img": "/assets/imgs/team/team-1.webp" },
+    { "name": "Brenda C. Janet", "post": "Lead Developer", "img": "/assets/imgs/team/team-2.webp" },
+    { "name": "Martin Carlos", "post": "Lead Designer", "img": "/assets/imgs/team/team-3.webp" },
+    { "name": "Garry J. Coburn", "post": "Project Manager", "img": "/assets/imgs/team/team-4.webp" }
+  ]
+}

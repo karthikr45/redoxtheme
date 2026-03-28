@@ -1,12 +1,14 @@
 "use client";
 import { FormEvent, useState } from "react";
+import contactPage from "@/data/content/contact-page.json";
+import EditableText from "@/components/admin/editable-text";
 
 export default function ContactArea() {
   const [budget, setBudget] = useState("");
 
-  const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  }
+  };
   return (
     <section className="contact-area-contact-page">
       <div className="container large">
@@ -14,36 +16,47 @@ export default function ContactArea() {
           <div className="section-header fade-anim">
             <div className="section-title-wrapper">
               <div className="subtitle-wrapper">
-                <span className="section-subtitle">Contact</span>
+                <EditableText section="contact-page" field="subtitle" as="span" className="section-subtitle">
+                  {contactPage.subtitle}
+                </EditableText>
               </div>
               <div className="title-wrapper">
-                <h2 className="section-title font-sequelsans-romanbody">
-                  Let’s drop us a line and get the project started.
-                </h2>
+                <EditableText section="contact-page" field="heading" as="h2" className="section-title font-sequelsans-romanbody" multiline>
+                  {contactPage.heading}
+                </EditableText>
               </div>
             </div>
           </div>
           <div className="section-content-wrapper fade-anim">
             <div className="section-content">
               <div className="contact-mail">
-                <p className="title">Get in touch</p>
+                <EditableText section="contact-page" field="getInTouchTitle" as="p" className="title">
+                  {contactPage.getInTouchTitle}
+                </EditableText>
                 <p className="text">
-                  We’re excited to hear from you and let’s start something
-                  special together <br />
-                  <a href="mailTo:hello@redoxagency.com">
-                    hello@redoxagency.com
+                  <EditableText section="contact-page" field="getInTouchText" as="span">
+                    {contactPage.getInTouchText}
+                  </EditableText>
+                  <br />
+                  <a href={`mailto:${contactPage.email}`}>
+                    <EditableText section="contact-page" field="email" as="span">
+                      {contactPage.email}
+                    </EditableText>
                   </a>
                 </p>
               </div>
               <div className="contact-social">
-                <p className="title">Follow</p>
+                <EditableText section="contact-page" field="followTitle" as="p" className="title">
+                  {contactPage.followTitle}
+                </EditableText>
                 <div className="social-links">
-                  <a href="#">Facebook</a>
-                  <a href="#">Twitter</a>
-                  <a href="#">LinkedIn</a>
-                  <a href="#">Instagram</a>
-                  <a href="#">Dribbble</a>
-                  <a href="#">Behance</a>
+                  {contactPage.socialLinks.map((link, idx) => (
+                    <a href={link.href} key={idx}>
+                      <EditableText section="contact-page" field={`socialLinks.${idx}.label`} as="span">
+                        {link.label}
+                      </EditableText>
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>
@@ -51,47 +64,20 @@ export default function ContactArea() {
               <form onSubmit={handleSubmit} id="contact__form">
                 <div className="contact-formwrap">
                   <div className="contact-formfield">
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      placeholder="Name*"
-                    />
+                    <input type="text" name="name" id="name" placeholder="Name*" />
                   </div>
                   <div className="contact-formfield">
-                    <input
-                      type="text"
-                      name="email"
-                      id="email"
-                      placeholder="Email*"
-                    />
+                    <input type="text" name="email" id="email" placeholder="Email*" />
                   </div>
                   <div className="contact-formfield">
-                    <input
-                      type="text"
-                      name="phone"
-                      id="phone"
-                      placeholder="Phone*"
-                    />
+                    <input type="text" name="phone" id="phone" placeholder="Phone*" />
                   </div>
                   <div className="contact-formfield">
-                    <input
-                      type="text"
-                      name="company"
-                      id="company"
-                      placeholder="Company"
-                    />
+                    <input type="text" name="company" id="company" placeholder="Company" />
                   </div>
                   <div className="contact-formfield">
-                    <select
-                      name="Budget"
-                      id="Budget"
-                      value={budget}
-                      onChange={(e) => setBudget(e.target.value)}
-                    >
-                      <option value="" disabled>
-                        Budget*
-                      </option>
+                    <select name="Budget" id="Budget" value={budget} onChange={(e) => setBudget(e.target.value)}>
+                      <option value="" disabled>Budget*</option>
                       <option value="1">5,000 - 10,000</option>
                       <option value="2">10,000 - 15,000</option>
                       <option value="3">15,000 - 20,000</option>
@@ -100,27 +86,19 @@ export default function ContactArea() {
                     </select>
                   </div>
                   <div className="contact-formfield">
-                    <input
-                      type="text"
-                      name="solution"
-                      id="solution"
-                      placeholder="Solution*"
-                    />
+                    <input type="text" name="solution" id="solution" placeholder="Solution*" />
                   </div>
                   <div className="contact-formfield message">
-                    <input
-                      type="text"
-                      name="message"
-                      id="message"
-                      placeholder="Message*"
-                    />
+                    <input type="text" name="message" id="message" placeholder="Message*" />
                   </div>
                 </div>
                 <div className="submit-btn">
                   <button type="submit" className="rr-btn">
                     <span className="btn-wrap">
-                      <span className="text-one">Send Message</span>
-                      <span className="text-two">Send Message</span>
+                      <EditableText section="contact-page" field="submitButtonLabel" as="span" className="text-one">
+                        {contactPage.submitButtonLabel}
+                      </EditableText>
+                      <span className="text-two">{contactPage.submitButtonLabel}</span>
                     </span>
                   </button>
                 </div>

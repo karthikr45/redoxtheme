@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "username": "admin",
+      "password": "admin123",
+      "role": "admin",
+      "name": "Administrator"
+    },
+    {
+      "username": "editor",
+      "password": "editor123",
+      "role": "editor",
+      "name": "Content Editor"
+    }
+  ],
+  "roles": {
+    "admin": {
+      "label": "Administrator",
+      "canEditContent": true,
+      "canEditMenu": true,
+      "canEditPages": true,
+      "canManageUsers": true
+    },
+    "editor": {
+      "label": "Content Editor",
+      "canEditContent": true,
+      "canEditMenu": false,
+      "canEditPages": true,
+      "canManageUsers": false
+    }
+  }
+}

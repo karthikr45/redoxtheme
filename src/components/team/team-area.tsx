@@ -1,34 +1,14 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-
-const teamMembers = [
-  {
-    name: "James David",
-    post: "CEO & Founder",
-    img: "/assets/imgs/team/team-1.webp",
-  },
-  {
-    name: "Brenda C. Janet",
-    post: "Lead Developer",
-    img: "/assets/imgs/team/team-2.webp",
-  },
-  {
-    name: "Martin Carlos",
-    post: "Lead Designer",
-    img: "/assets/imgs/team/team-3.webp",
-  },
-  {
-    name: "Garry J. Coburn",
-    post: "Project Manager",
-    img: "/assets/imgs/team/team-4.webp",
-  },
-];
+import teamPage from "@/data/content/team-page.json";
+import EditableText from "@/components/admin/editable-text";
 
 export const TeamWrapperArea = () => {
   return (
     <div className="team-wrapper">
-      {teamMembers.map((member, idx) => (
+      {teamPage.members.map((member, idx) => (
         <div className="team-box" key={member.name + idx}>
           <div className="thumb">
             <Link href="/team-details">
@@ -37,15 +17,21 @@ export const TeamWrapperArea = () => {
           </div>
           <div className="content">
             <h3 className="name">
-              <Link href="/team-details">{member.name}</Link>
+              <Link href="/team-details">
+                <EditableText section="team-page" field="name" index={idx} as="span">
+                  {member.name}
+                </EditableText>
+              </Link>
             </h3>
-            <span className="post">{member.post}</span>
+            <EditableText section="team-page" field="post" index={idx} as="span" className="post">
+              {member.post}
+            </EditableText>
           </div>
         </div>
       ))}
     </div>
-  )
-}
+  );
+};
 
 export default function TeamArea() {
   return (

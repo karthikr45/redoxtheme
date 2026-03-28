@@ -1,6 +1,13 @@
 "use client";
+import { useEffect, useState } from "react";
 import { useEditMode } from "./edit-mode-provider";
 import Link from "next/link";
+
+interface AuthUser {
+  username: string;
+  name: string;
+  role: string;
+}
 
 export default function EditToolbar() {
   const {
@@ -13,9 +20,31 @@ export default function EditToolbar() {
     savedMessage,
   } = useEditMode();
 
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/admin/auth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "check" }),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.authenticated) {
+          setUser(data.user);
+        }
+        setChecked(true);
+      })
+      .catch(() => setChecked(true));
+  }, []);
+
+  // Don't show anything if not logged in
+  if (!checked || !user) return null;
+
   return (
     <>
-      {/* Fixed Edit Button (Always Visible) */}
+      {/* Fixed Edit Button (Only for logged-in users) */}
       <div
         style={{
           position: "fixed",
@@ -60,9 +89,27 @@ export default function EditToolbar() {
               boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
             }}
           >
-            <span style={{ color: "#fff", fontSize: 13, marginRight: 4 }}>
-              EDIT MODE
-            </span>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+                marginRight: 4,
+              }}
+            >
+              <span
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: "50%",
+                  background: "#00b894",
+                  display: "inline-block",
+                  animation: "pulse 2s infinite",
+                }}
+              />
+              <span style={{ color: "#fff", fontSize: 13 }}>EDIT MODE</span>
+              <span style={{ color: "#888", fontSize: 11 }}>({user.name})</span>
+            </div>
 
             {pendingChanges.size > 0 && (
               <span
@@ -161,6 +208,10 @@ export default function EditToolbar() {
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(10px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.4; }
         }
       `}</style>
     </>

@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const sidebarItems = [
   { label: "Dashboard", href: "/admin", icon: "🏠" },
@@ -15,8 +16,86 @@ const sidebarItems = [
   { label: "Footer", href: "/admin/footer", icon: "🔻" },
 ];
 
+interface User {
+  username: string;
+  name: string;
+  role: string;
+}
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const [user, setUser] = useState<User | null>(null);
+  const [checking, setChecking] = useState(true);
+
+  useEffect(() => {
+    // Skip auth check on login page
+    if (pathname === "/admin/login") {
+      setChecking(false);
+      return;
+    }
+
+    fetch("/api/admin/auth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "check" }),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.authenticated) {
+          setUser(data.user);
+        } else {
+          router.push("/admin/login");
+        }
+        setChecking(false);
+      })
+      .catch(() => {
+        router.push("/admin/login");
+        setChecking(false);
+      });
+  }, [pathname, router]);
+
+  // Login page - render without sidebar
+  if (pathname === "/admin/login") {
+    return (
+      <html lang="en">
+        <body style={{ margin: 0 }}>{children}</body>
+      </html>
+    );
+  }
+
+  // Loading state
+  if (checking) {
+    return (
+      <html lang="en">
+        <body
+          style={{
+            margin: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "100vh",
+            background: "#f5f6fa",
+            fontFamily: "'Segoe UI', sans-serif",
+          }}
+        >
+          <p style={{ color: "#888", fontSize: 16 }}>Checking authentication...</p>
+        </body>
+      </html>
+    );
+  }
+
+  // Not logged in
+  if (!user) return null;
+
+  const handleLogout = async () => {
+    await fetch("/api/admin/auth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "logout" }),
+    });
+    router.push("/admin/login");
+  };
 
   return (
     <html lang="en">
@@ -30,6 +109,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               color: "#fff",
               padding: "20px 0",
               flexShrink: 0,
+              display: "flex",
+              flexDirection: "column",
             }}
           >
             <div style={{ padding: "0 20px 20px", borderBottom: "1px solid #333" }}>
@@ -40,7 +121,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 Edit your website content
               </p>
             </div>
-            <nav style={{ marginTop: 10 }}>
+            <nav style={{ marginTop: 10, flex: 1 }}>
               {sidebarItems.map((item) => (
                 <Link
                   key={item.href}
@@ -63,7 +144,32 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 </Link>
               ))}
             </nav>
-            <div style={{ padding: "20px", borderTop: "1px solid #333", marginTop: 20 }}>
+
+            {/* User info + actions */}
+            <div style={{ borderTop: "1px solid #333", padding: "16px 20px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+                <div
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: "50%",
+                    background: "#6c5ce7",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: 16,
+                    fontWeight: 700,
+                    color: "#fff",
+                  }}
+                >
+                  {user.name.charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: "#fff" }}>{user.name}</div>
+                  <div style={{ fontSize: 11, color: "#888", textTransform: "capitalize" }}>{user.role}</div>
+                </div>
+              </div>
+
               <Link
                 href="/"
                 target="_blank"
@@ -76,10 +182,26 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   borderRadius: 6,
                   textDecoration: "none",
                   fontSize: 14,
+                  marginBottom: 8,
                 }}
               >
                 View Live Site
               </Link>
+              <button
+                onClick={handleLogout}
+                style={{
+                  width: "100%",
+                  padding: "10px 16px",
+                  background: "transparent",
+                  color: "#e74c3c",
+                  border: "1px solid #e74c3c",
+                  borderRadius: 6,
+                  fontSize: 14,
+                  cursor: "pointer",
+                }}
+              >
+                Logout
+              </button>
             </div>
           </aside>
 

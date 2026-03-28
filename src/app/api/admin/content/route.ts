@@ -14,6 +14,11 @@ const VALID_SECTIONS = [
   "marquee",
   "menu",
   "site-settings",
+  "about-page",
+  "contact-page",
+  "team-page",
+  "faq-page",
+  "admin-users",
 ];
 
 export async function GET(request: NextRequest) {
@@ -36,6 +41,12 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  // Check auth for write operations
+  const session = request.cookies.get("admin_session")?.value;
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized. Please login at /admin/login" }, { status: 401 });
+  }
+
   const section = request.nextUrl.searchParams.get("section");
 
   if (!section || !VALID_SECTIONS.includes(section)) {

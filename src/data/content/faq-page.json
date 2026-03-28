@@ -1,0 +1,14 @@
+{
+  "pageTitle": "Question",
+  "subtitle": "FAQ",
+  "heading": "Learn some common answers about newly projects",
+  "items": [
+    { "id": "collapseOne", "question": "Bring their individual experience and creative?", "answer": "People know what an FAQ is, so make that your page title. Don't overcomplicate things by calling it \"Good to Know\" or \"More Info\". Sometimes people put the frequently asked questions section on their Contact page, but you can create your own page and put it right in your website navigation menu" },
+    { "id": "collapseTwo", "question": "Design should enrich our day?", "answer": "People know what an FAQ is, so make that your page title. Don't overcomplicate things by calling it \"Good to Know\" or \"More Info\". Sometimes people put the frequently asked questions section on their Contact page, but you can create your own page and put it right in your website navigation menu" },
+    { "id": "collapseThree", "question": "Human centered design to challenges design theory?", "answer": "People know what an FAQ is, so make that your page title. Don't overcomplicate things by calling it \"Good to Know\" or \"More Info\". Sometimes people put the frequently asked questions section on their Contact page, but you can create your own page and put it right in your website navigation menu" },
+    { "id": "collapseFour", "question": "Align with your brand look and feel?", "answer": "People know what an FAQ is, so make that your page title. Don't overcomplicate things by calling it \"Good to Know\" or \"More Info\". Sometimes people put the frequently asked questions section on their Contact page, but you can create your own page and put it right in your website navigation menu" },
+    { "id": "collapseFive", "question": "How to become an Agile productive manager?", "answer": "People know what an FAQ is, so make that your page title. Don't overcomplicate things by calling it \"Good to Know\" or \"More Info\". Sometimes people put the frequently asked questions section on their Contact page, but you can create your own page and put it right in your website navigation menu" },
+    { "id": "collapseSix", "question": "Why we create the best Webflow websites in Figma?", "answer": "People know what an FAQ is, so make that your page title. Don't overcomplicate things by calling it \"Good to Know\" or \"More Info\". Sometimes people put the frequently asked questions section on their Contact page, but you can create your own page and put it right in your website navigation menu" },
+    { "id": "collapseSeven", "question": "How to manage Agile project teams?", "answer": "People know what an FAQ is, so make that your page title. Don't overcomplicate things by calling it \"Good to Know\" or \"More Info\". Sometimes people put the frequently asked questions section on their Contact page, but you can create your own page and put it right in your website navigation menu" }
+  ]
+}

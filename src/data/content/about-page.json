@@ -1,0 +1,20 @@
+{
+  "pageTitle": "Since 2012",
+  "infoSubtitle": "Who are we?",
+  "infoHeading": "We deliver creative ideas to a crowded world.",
+  "stats": [
+    { "label": "35+ Google reviews", "value": "4.9" },
+    { "label": "Clients world-wide", "value": "170+" },
+    { "label": "Completed projects", "value": "1.7k" },
+    { "label": "Client satisfaction", "value": "95%" }
+  ],
+  "mediaHeading": "Collaborate with a super down-to-earth, mad-talented team",
+  "mediaText": "A collective bunch working on incredible projects and building enduring partnerships that extend well beyond the deliverable.",
+  "mediaButtonLabel": "Learn More",
+  "mediaButtonLink": "/contact",
+  "clientText": "Help to brands growing up and show their success stories to the world",
+  "awardSubtitle": "Awards",
+  "awardHeading": "We believe in quality, not quantity, that's why we're great ever.",
+  "teamSubtitle": "Team",
+  "teamHeading": "Meet the talented squad, behind the creativity"
+}

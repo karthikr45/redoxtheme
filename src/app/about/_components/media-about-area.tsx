@@ -1,6 +1,9 @@
+"use client";
 import Image from "next/image";
 import gallery_img from "@/assets/imgs/gallery/image-23.webp";
 import Link from "next/link";
+import aboutPage from "@/data/content/about-page.json";
+import EditableText from "@/components/admin/editable-text";
 
 export default function MediaAboutArea() {
   return (
@@ -19,22 +22,23 @@ export default function MediaAboutArea() {
             <div className="section-content">
               <div className="section-title-wrapper">
                 <div className="title-wrapper">
-                  <h2 className="section-title font-sequelsans-romanbody">
-                    Collaborate with a super down-to-earth, mad-talented team
-                  </h2>
+                  <EditableText section="about-page" field="mediaHeading" as="h2" className="section-title font-sequelsans-romanbody" multiline>
+                    {aboutPage.mediaHeading}
+                  </EditableText>
                 </div>
               </div>
               <div className="text-wrapper">
-                <p className="text">
-                  A collective bunch working on incredible projects and building
-                  enduring partnerships that extend well beyond the deliverable.
-                </p>
+                <EditableText section="about-page" field="mediaText" as="p" className="text" multiline>
+                  {aboutPage.mediaText}
+                </EditableText>
               </div>
               <div className="btn-wrapper">
-                <Link href="/contact" className="rr-btn">
+                <Link href={aboutPage.mediaButtonLink} className="rr-btn">
                   <span className="btn-wrap">
-                    <span className="text-one">Learn More</span>
-                    <span className="text-two">Learn More</span>
+                    <EditableText section="about-page" field="mediaButtonLabel" as="span" className="text-one">
+                      {aboutPage.mediaButtonLabel}
+                    </EditableText>
+                    <span className="text-two">{aboutPage.mediaButtonLabel}</span>
                   </span>
                 </Link>
               </div>

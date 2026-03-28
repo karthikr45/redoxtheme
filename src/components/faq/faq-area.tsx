@@ -1,5 +1,7 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import faqPage from "@/data/content/faq-page.json";
+import EditableText from "@/components/admin/editable-text";
 
 interface FAQItem {
   id: string;
@@ -8,60 +10,13 @@ interface FAQItem {
   isOpen: boolean;
 }
 
-const faqItems: FAQItem[] = [
-  {
-    id: "collapseOne",
-    question: "Bring their individual experience and creative?",
-    answer:
-      "People know what an FAQ is, so make that your page title. Don’t overcomplicate things by calling it “Good to Know” or “More Info”. Sometimes people put the frequently asked questions section on their Contact page, but you can create your own page and put it right in your website navigation menu",
-    isOpen: false,
-  },
-  {
-    id: "collapseTwo",
-    question: "Design should enrich our day?",
-    answer:
-      "People know what an FAQ is, so make that your page title. Don’t overcomplicate things by calling it “Good to Know” or “More Info”. Sometimes people put the frequently asked questions section on their Contact page, but you can create your own page and put it right in your website navigation menu",
-    isOpen: true,
-  },
-  {
-    id: "collapseThree",
-    question: "Human centered design to challenges design theory?",
-    answer:
-      "People know what an FAQ is, so make that your page title. Don’t overcomplicate things by calling it “Good to Know” or “More Info”. Sometimes people put the frequently asked questions section on their Contact page, but you can create your own page and put it right in your website navigation menu",
-    isOpen: false,
-  },
-  {
-    id: "collapseFour",
-    question: "Align with your brand look and feel?",
-    answer:
-      "People know what an FAQ is, so make that your page title. Don’t overcomplicate things by calling it “Good to Know” or “More Info”. Sometimes people put the frequently asked questions section on their Contact page, but you can create your own page and put it right in your website navigation menu",
-    isOpen: false,
-  },
-  {
-    id: "collapseFive",
-    question: "How to become an Agile productive manager?",
-    answer:
-      "People know what an FAQ is, so make that your page title. Don’t overcomplicate things by calling it “Good to Know” or “More Info”. Sometimes people put the frequently asked questions section on their Contact page, but you can create your own page and put it right in your website navigation menu",
-    isOpen: false,
-  },
-  {
-    id: "collapseSix",
-    question: "Why we create the best Webflow websites in Figma?",
-    answer:
-      "People know what an FAQ is, so make that your page title. Don’t overcomplicate things by calling it “Good to Know” or “More Info”. Sometimes people put the frequently asked questions section on their Contact page, but you can create your own page and put it right in your website navigation menu",
-    isOpen: false,
-  },
-  {
-    id: "collapseSeven",
-    question: "How to manage Agile project teams?",
-    answer:
-      "People know what an FAQ is, so make that your page title. Don’t overcomplicate things by calling it “Good to Know” or “More Info”. Sometimes people put the frequently asked questions section on their Contact page, but you can create your own page and put it right in your website navigation menu",
-    isOpen: false,
-  },
-];
-
 export const AccordionWrapper = () => {
-  const [faqs, setFaqs] = useState<FAQItem[]>(faqItems);
+  const [faqs, setFaqs] = useState<FAQItem[]>(
+    faqPage.items.map((item, idx) => ({
+      ...item,
+      isOpen: idx === 1,
+    }))
+  );
 
   const toggleFAQ = (id: string) => {
     setFaqs((prevFaqs) =>
@@ -70,38 +25,44 @@ export const AccordionWrapper = () => {
       )
     );
   };
+
   return (
     <div className="accordion-wrapper fade-anim">
       <div className="accordion" id="accordionExample">
-        {faqs.map((faq) => (
+        {faqs.map((faq, idx) => (
           <div key={faq.id} className="accordion-item">
             <h2 className="accordion-header">
               <button
-                className={`accordion-button ${faq.isOpen ? '' : 'collapsed'}`}
+                className={`accordion-button ${faq.isOpen ? "" : "collapsed"}`}
                 type="button"
                 onClick={() => toggleFAQ(faq.id)}
                 aria-expanded={faq.isOpen}
                 aria-controls={faq.id}
               >
-                {faq.question}
+                <EditableText section="faq-page" field="question" index={idx} as="span">
+                  {faq.question}
+                </EditableText>
               </button>
             </h2>
             <div
               id={faq.id}
-              className={`accordion-collapse collapse ${faq.isOpen ? 'show' : ''}`}
+              className={`accordion-collapse collapse ${faq.isOpen ? "show" : ""}`}
               data-bs-parent="#accordionExample"
             >
-              <div className="accordion-body">{faq.answer}</div>
+              <div className="accordion-body">
+                <EditableText section="faq-page" field="answer" index={idx} as="span" multiline>
+                  {faq.answer}
+                </EditableText>
+              </div>
             </div>
           </div>
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 const FAQArea = () => {
-
   return (
     <section className="faq-area">
       <div className="container large">
@@ -109,12 +70,14 @@ const FAQArea = () => {
           <div className="section-header fade-anim">
             <div className="section-title-wrapper">
               <div className="subtitle-wrapper">
-                <span className="section-subtitle">FAQ</span>
+                <EditableText section="faq-page" field="subtitle" as="span" className="section-subtitle">
+                  {faqPage.subtitle}
+                </EditableText>
               </div>
               <div className="title-wrapper">
-                <h2 className="section-title font-sequelsans-romanbody">
-                  Learn some common answers about newly projects
-                </h2>
+                <EditableText section="faq-page" field="heading" as="h2" className="section-title font-sequelsans-romanbody" multiline>
+                  {faqPage.heading}
+                </EditableText>
               </div>
             </div>
           </div>
@@ -122,7 +85,6 @@ const FAQArea = () => {
           {/* accordion wrapper */}
           <AccordionWrapper />
           {/* accordion wrapper */}
-
         </div>
       </div>
     </section>

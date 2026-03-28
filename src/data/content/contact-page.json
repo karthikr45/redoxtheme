@@ -1,0 +1,18 @@
+{
+  "pageTitle": "Contact",
+  "subtitle": "Contact",
+  "heading": "Let's drop us a line and get the project started.",
+  "getInTouchTitle": "Get in touch",
+  "getInTouchText": "We're excited to hear from you and let's start something special together",
+  "email": "hello@redoxagency.com",
+  "followTitle": "Follow",
+  "socialLinks": [
+    { "label": "Facebook", "href": "#" },
+    { "label": "Twitter", "href": "#" },
+    { "label": "LinkedIn", "href": "#" },
+    { "label": "Instagram", "href": "#" },
+    { "label": "Dribbble", "href": "#" },
+    { "label": "Behance", "href": "#" }
+  ],
+  "submitButtonLabel": "Send Message"
+}

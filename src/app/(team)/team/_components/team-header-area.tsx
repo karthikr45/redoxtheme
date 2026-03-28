@@ -1,4 +1,7 @@
-import Image from 'next/image';
+"use client";
+import Image from "next/image";
+import teamPage from "@/data/content/team-page.json";
+import EditableText from "@/components/admin/editable-text";
 
 export default function TeamHeaderArea() {
   return (
@@ -14,23 +17,21 @@ export default function TeamHeaderArea() {
                   <Image src="/assets/imgs/team/team-13.webp" alt="image" width={60} height={60} />
                 </div>
                 <div className="text-wrapper">
-                  <p className="text">A team of <span>80+</span> skilled employees
-                    is working behind your creative
-                    works
-                  </p>
+                  <p className="text" dangerouslySetInnerHTML={{ __html: teamPage.headerText }} />
                 </div>
               </div>
               <div className="title-wrapper">
-                <h2 className="section-title font-sequelsans-romanbody">
-                  Our talented squad
-                </h2>
-                <p className="text">We’re a diverse team that works as fancies attention to details, enjoys beers on
-                  Friday nights and aspires to design the dent in the universe.</p>
+                <EditableText section="team-page" field="headerHeading" as="h2" className="section-title font-sequelsans-romanbody">
+                  {teamPage.headerHeading}
+                </EditableText>
+                <EditableText section="team-page" field="headerDescription" as="p" className="text" multiline>
+                  {teamPage.headerDescription}
+                </EditableText>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
