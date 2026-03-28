@@ -14,6 +14,12 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(menu?.data || []);
     }
 
+    if (type === "settings") {
+      const settings = await getSiteSettings();
+      const siteSettings = await settings.findOne({ key: "site-settings" });
+      return NextResponse.json(siteSettings?.data || {});
+    }
+
     if (type === "pages") {
       const pages = await getPages();
       const allPages = await pages.find({}).project({ slug: 1, title: 1, updatedAt: 1, status: 1 }).toArray();
@@ -41,6 +47,16 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
+
+    if (type === "settings") {
+      const settings = await getSiteSettings();
+      await settings.updateOne(
+        { key: "site-settings" },
+        { $set: { key: "site-settings", data: body, updatedAt: new Date() } },
+        { upsert: true }
+      );
+      return NextResponse.json({ success: true });
+    }
 
     if (type === "menu") {
       const settings = await getSiteSettings();
