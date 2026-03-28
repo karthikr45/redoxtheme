@@ -1,15 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import { getPayload } from "payload";
+import config from "@payload-config";
+import crypto from "crypto";
 
-const USERS_FILE = path.join(process.cwd(), "src/data/content/admin-users.json");
-
-function getUsers() {
-  const data = JSON.parse(fs.readFileSync(USERS_FILE, "utf-8"));
-  return data;
+function hashPassword(password: string): string {
+  return crypto.createHash("sha256").update(password).digest("hex");
 }
 
-// Login
+const ROLES: Record<string, Record<string, boolean>> = {
+  admin: {
+    canEditContent: true,
+    canEditMenu: true,
+    canEditPages: true,
+    canManageUsers: true,
+  },
+  editor: {
+    canEditContent: true,
+    canEditMenu: false,
+    canEditPages: true,
+    canManageUsers: false,
+  },
+};
+
 export async function POST(request: NextRequest) {
   const { username, password, action } = await request.json();
 
@@ -26,18 +38,23 @@ export async function POST(request: NextRequest) {
     }
     try {
       const decoded = JSON.parse(Buffer.from(session, "base64").toString());
-      const data = getUsers();
-      const user = data.users.find(
-        (u: { username: string }) => u.username === decoded.username
-      );
-      if (!user) {
+      const payload = await getPayload({ config });
+      const result = await payload.find({
+        collection: "admin-users",
+        where: { username: { equals: decoded.username } },
+        limit: 1,
+      });
+
+      if (result.docs.length === 0) {
         return NextResponse.json({ authenticated: false });
       }
-      const role = data.roles[user.role as keyof typeof data.roles];
+
+      const user = result.docs[0];
+      const permissions = ROLES[user.role as string] || ROLES.editor;
       return NextResponse.json({
         authenticated: true,
         user: { username: user.username, name: user.name, role: user.role },
-        permissions: role,
+        permissions,
       });
     } catch {
       return NextResponse.json({ authenticated: false });
@@ -45,36 +62,54 @@ export async function POST(request: NextRequest) {
   }
 
   // Login action
-  const data = getUsers();
-  const user = data.users.find(
-    (u: { username: string; password: string }) =>
-      u.username === username && u.password === password
-  );
+  try {
+    const payload = await getPayload({ config });
+    const result = await payload.find({
+      collection: "admin-users",
+      where: { username: { equals: username } },
+      limit: 1,
+    });
 
-  if (!user) {
+    if (result.docs.length === 0) {
+      return NextResponse.json(
+        { error: "Invalid username or password" },
+        { status: 401 }
+      );
+    }
+
+    const user = result.docs[0];
+    const hashed = hashPassword(password);
+
+    if (user.hashedPassword !== hashed) {
+      return NextResponse.json(
+        { error: "Invalid username or password" },
+        { status: 401 }
+      );
+    }
+
+    const permissions = ROLES[user.role as string] || ROLES.editor;
+    const session = Buffer.from(
+      JSON.stringify({ username: user.username, role: user.role, ts: Date.now() })
+    ).toString("base64");
+
+    const response = NextResponse.json({
+      success: true,
+      user: { username: user.username, name: user.name, role: user.role },
+      permissions,
+    });
+
+    response.cookies.set("admin_session", session, {
+      httpOnly: true,
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+      sameSite: "lax",
+    });
+
+    return response;
+  } catch (err) {
     return NextResponse.json(
-      { error: "Invalid username or password" },
-      { status: 401 }
+      { error: "Authentication failed: " + String(err) },
+      { status: 500 }
     );
   }
-
-  const role = data.roles[user.role as keyof typeof data.roles];
-  const session = Buffer.from(
-    JSON.stringify({ username: user.username, role: user.role, ts: Date.now() })
-  ).toString("base64");
-
-  const response = NextResponse.json({
-    success: true,
-    user: { username: user.username, name: user.name, role: user.role },
-    permissions: role,
-  });
-
-  response.cookies.set("admin_session", session, {
-    httpOnly: true,
-    path: "/",
-    maxAge: 60 * 60 * 24 * 7, // 7 days
-    sameSite: "lax",
-  });
-
-  return response;
 }

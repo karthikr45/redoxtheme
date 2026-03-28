@@ -1,6 +1,11 @@
 import "dotenv/config";
 import payload from "payload";
+import crypto from "crypto";
 import config from "../payload.config.ts";
+
+function hashPassword(password: string): string {
+  return crypto.createHash("sha256").update(password).digest("hex");
+}
 
 const seed = async () => {
   console.log("🔄 Starting content seed...\n");
@@ -235,8 +240,40 @@ const seed = async () => {
     },
   });
 
+  // Seed Admin Users
+  console.log("👤 Seeding Admin Users...");
+
+  // Delete existing admin users to avoid duplicates
+  const existing = await payloadInstance.find({ collection: "admin-users", limit: 100 });
+  for (const doc of existing.docs) {
+    await payloadInstance.delete({ collection: "admin-users", id: doc.id });
+  }
+
+  await payloadInstance.create({
+    collection: "admin-users",
+    data: {
+      username: "admin",
+      hashedPassword: hashPassword("admin123"),
+      name: "Administrator",
+      role: "admin",
+    },
+  });
+
+  await payloadInstance.create({
+    collection: "admin-users",
+    data: {
+      username: "editor",
+      hashedPassword: hashPassword("editor123"),
+      name: "Content Editor",
+      role: "editor",
+    },
+  });
+
   console.log("\n✅ All content seeded successfully!");
-  console.log("🌐 Visit localhost:3000/admin to see your content");
+  console.log("\n👤 Login credentials:");
+  console.log("   Admin:  username: admin  / password: admin123");
+  console.log("   Editor: username: editor / password: editor123");
+  console.log("\n🌐 Visit localhost:3000/admin/login to sign in");
   process.exit(0);
 };
 

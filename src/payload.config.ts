@@ -19,6 +19,7 @@ import { AboutPage } from "./collections/AboutPage";
 import { ContactPage } from "./collections/ContactPage";
 import { TeamPage } from "./collections/TeamPage";
 import { FaqPage } from "./collections/FaqPage";
+import { AdminUsers } from "./collections/AdminUsers";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -37,7 +38,7 @@ export default buildConfig({
     },
   },
   editor: lexicalEditor(),
-  collections: [Users, Media],
+  collections: [Users, Media, AdminUsers],
   globals: [
     HeroSection,
     AboutSection,
