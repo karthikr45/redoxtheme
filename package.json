@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed": "npx tsx src/scripts/seed.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -29,8 +30,10 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.3.1",
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }
