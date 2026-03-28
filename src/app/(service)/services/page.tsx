@@ -6,49 +6,33 @@ import PageTitle from "@/components/common/page-title";
 import ServiceAreaSix from "@/components/services/service-area-6";
 import ServiceWrapper from "./_components/service-wrapper";
 import ClientAreaFour from "@/components/client/client-area-4";
+import { getPageData, getSection } from "@/lib/get-page";
 
 export const metadata: Metadata = {
   title: "Services Page - Redox Next js Template",
-  description:
-    "Redox is a agency and portfolio template built with Next.js, designed to showcase your work and services effectively.",
+  description: "Redox is a agency and portfolio template built with Next.js.",
 };
 
-export default function ServicesPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ServicesPage() {
+  const page = await getPageData("services");
+  const sections = page?.sections || [];
+  const pageTitle = getSection(sections, "page-title");
+
   return (
     <>
-      {/* Header area start */}
       <HeaderTwo />
-      {/* Header area end */}
-
-      {/* Main wrapper start */}
-      <MainWrapper
-        bodyCls={[
-          "body-wrapper",
-          "body-page-inner",
-          "font-heading-sequelsans-romanbody",
-        ]}
-      >
+      <MainWrapper bodyCls={["body-wrapper", "body-page-inner", "font-heading-sequelsans-romanbody"]}>
         <ServiceWrapper>
           <main>
-            {/* page title area start */}
-            <PageTitle title="Expertise" />
-            {/* page title area end */}
-
-            {/* services area start */}
+            <PageTitle title={(pageTitle?.title as string) || "Expertise"} />
             <ServiceAreaSix />
-            {/* services area end */}
-
-            {/* client area start  */}
-            <ClientAreaFour/>
-            {/* client area end  */}
+            <ClientAreaFour />
           </main>
-
-          {/* Footer area start */}
           <FooterInner />
-          {/* Footer area end */}
         </ServiceWrapper>
       </MainWrapper>
-      {/* Main wrapper end */}
     </>
   );
 }

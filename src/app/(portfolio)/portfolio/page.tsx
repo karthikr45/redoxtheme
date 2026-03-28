@@ -6,50 +6,33 @@ import PortfolioWrapper from "./_components/portfolio-wrapper";
 import PageTitle from "@/components/common/page-title";
 import WorkAreaEight from "@/components/work/work-area-8";
 import CustomCursor from "@/components/common/custom-cursor";
+import { getPageData, getSection } from "@/lib/get-page";
 
 export const metadata: Metadata = {
   title: "Portfolio Page - Redox Next js Template",
-  description:
-    "Redox is a agency and portfolio template built with Next.js, designed to showcase your work and services effectively.",
+  description: "Redox is a agency and portfolio template built with Next.js.",
 };
 
-export default function PortfolioPage() {
+export const dynamic = "force-dynamic";
+
+export default async function PortfolioPage() {
+  const page = await getPageData("portfolio");
+  const sections = page?.sections || [];
+  const pageTitle = getSection(sections, "page-title");
+
   return (
     <>
-      {/* custom cursor start */}
       <CustomCursor />
-      {/* custom cursor end */}
-
-      {/* Header area start */}
       <HeaderTwo />
-      {/* Header area end */}
-
-      {/* Main wrapper start */}
-      <MainWrapper
-        bodyCls={[
-          "body-wrapper",
-          "body-page-inner",
-          "font-heading-sequelsans-romanbody",
-        ]}
-      >
+      <MainWrapper bodyCls={["body-wrapper", "body-page-inner", "font-heading-sequelsans-romanbody"]}>
         <PortfolioWrapper>
           <main>
-            {/* page title area start */}
-            <PageTitle title="Portfolio" />
-            {/* page title area end */}
-
-            {/* portfolio area start */}
+            <PageTitle title={(pageTitle?.title as string) || "Portfolio"} />
             <WorkAreaEight />
-            {/* portfolio area end */}
-
           </main>
-
-          {/* Footer area start */}
           <FooterInner />
-          {/* Footer area end */}
         </PortfolioWrapper>
       </MainWrapper>
-      {/* Main wrapper end */}
     </>
   );
 }

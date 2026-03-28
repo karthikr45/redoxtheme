@@ -5,49 +5,33 @@ import ContactWrapper from "./_components/contact-wrapper";
 import ContactArea from "./_components/contact-area";
 import FooterInner from "@/layout/footer/footer-inner";
 import PageTitle from "@/components/common/page-title";
-
+import { getPageData, getSection } from "@/lib/get-page";
 
 export const metadata: Metadata = {
   title: "Contact Page - Redox Next js Template",
-  description:
-    "Redox is a agency and portfolio template built with Next.js, designed to showcase your work and services effectively.",
+  description: "Redox is a agency and portfolio template built with Next.js.",
 };
 
-export default function ContactPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ContactPage() {
+  const page = await getPageData("contact");
+  const sections = page?.sections || [];
+  const pageTitle = getSection(sections, "page-title");
+  const contactData = getSection(sections, "contact");
+
   return (
     <>
-      {/* Header area start */}
       <HeaderTwo />
-      {/* Header area end */}
-
-      {/* Main wrapper start */}
-      <MainWrapper
-        bodyCls={[
-          "body-wrapper",
-          "body-page-inner",
-          "font-heading-sequelsans-romanbody",
-        ]}
-      >
+      <MainWrapper bodyCls={["body-wrapper", "body-page-inner", "font-heading-sequelsans-romanbody"]}>
         <ContactWrapper>
-
           <main>
-
-            {/* page title area start */}
-            <PageTitle title="Contact" />
-            {/* page title area end */}
-
-            {/* contact area start */}
-            <ContactArea/>
-            {/* contact area end */}
-
+            <PageTitle title={(pageTitle?.title as string) || "Contact"} />
+            <ContactArea data={contactData} />
           </main>
-
-          {/* Footer area start */}
-          <FooterInner/>
-          {/* Footer area end */}
+          <FooterInner />
         </ContactWrapper>
       </MainWrapper>
-      {/* Main wrapper end */}
     </>
   );
 }
