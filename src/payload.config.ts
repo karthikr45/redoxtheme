@@ -3,6 +3,7 @@ import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import path from "path";
 import sharp from "sharp";
+import { fileURLToPath } from "url";
 
 import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
@@ -19,11 +20,17 @@ import { ContactPage } from "./collections/ContactPage";
 import { TeamPage } from "./collections/TeamPage";
 import { FaqPage } from "./collections/FaqPage";
 
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
+
 export default buildConfig({
   admin: {
     user: Users.slug,
     meta: {
       titleSuffix: " - Redox Admin",
+    },
+    importMap: {
+      baseDir: path.resolve(dirname),
     },
   },
   editor: lexicalEditor(),
@@ -47,7 +54,7 @@ export default buildConfig({
   }),
   sharp,
   typescript: {
-    outputFile: path.resolve(__dirname, "payload-types.ts"),
+    outputFile: path.resolve(dirname, "payload-types.ts"),
   },
   upload: {
     limits: {
