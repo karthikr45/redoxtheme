@@ -37,7 +37,7 @@ export default function AboutPage() {
         <AboutWrapper>
           <main>
             {/* page title area start */}
-            <PageTitle title="Since 2012" />
+            <PageTitle title="Since 2012" section="about-page" field="pageTitle" />
             {/* page title area end */}
 
             {/* about area details start */}

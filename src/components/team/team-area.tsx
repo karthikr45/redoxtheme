@@ -41,16 +41,15 @@ export default function TeamArea() {
           <div className="section-header fade-anim">
             <div className="section-title-wrapper">
               <div className="title-wrapper">
-                <h2 className="section-title font-sequelsans-romanbody rr_title_anim">
-                  Meet the talented squad, behind the creativity
-                </h2>
+                <EditableText section="team-page" field="headerHeading" as="h2" className="section-title font-sequelsans-romanbody rr_title_anim">
+                  {teamPage.headerHeading}
+                </EditableText>
               </div>
             </div>
             <div className="text-wrapper">
-              <p className="text">
-                We are a great skilled and talented team behind the creativity
-                and your amazing digital craft.
-              </p>
+              <EditableText section="team-page" field="headerDescription" as="p" className="text" multiline>
+                {teamPage.headerDescription}
+              </EditableText>
             </div>
           </div>
           <div className="team-wrapper-box fade-anim">

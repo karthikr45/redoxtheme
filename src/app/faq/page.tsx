@@ -31,7 +31,7 @@ export default function FaqPage() {
           <main>
 
             {/* page title area start */}
-            <PageTitle title="Question" />
+            <PageTitle title="Question" section="faq-page" field="pageTitle" />
             {/* page title area end */}
 
             {/* faq area start */}

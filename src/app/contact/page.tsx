@@ -33,7 +33,7 @@ export default function ContactPage() {
           <main>
 
             {/* page title area start */}
-            <PageTitle title="Contact" />
+            <PageTitle title="Contact" section="contact-page" field="pageTitle" />
             {/* page title area end */}
 
             {/* contact area start */}

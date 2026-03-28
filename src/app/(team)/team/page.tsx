@@ -33,7 +33,7 @@ export default function TeamPage() {
         <TeamWrapper>
           <main>
             {/* page title area start */}
-            <PageTitle title="Our Team" />
+            <PageTitle title="Our Team" section="team-page" field="pageTitle" />
             {/* page title area end */}
 
             {/* team header area start */}

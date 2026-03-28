@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ctaContent from "@/data/content/cta.json";
 import EditableText from "@/components/admin/editable-text";
+import EditableLink from "@/components/admin/editable-link";
 
 export default function CtaAreaFour() {
   return (
@@ -13,6 +14,7 @@ export default function CtaAreaFour() {
             <div className="section-title-wrapper">
               <div className="title-wrapper">
                 <h2 className="section-title font-bdogrotesk-regular">
+                  <EditableLink section="cta" field="link" currentHref={ctaContent.link}>
                   <Link href={ctaContent.link}>
                     <EditableText section="cta" field="headingLine1" as="span">
                       {ctaContent.headingLine1}
@@ -40,6 +42,7 @@ export default function CtaAreaFour() {
                       {ctaContent.headingLine2}
                     </EditableText>
                   </Link>
+                  </EditableLink>
                 </h2>
               </div>
             </div>

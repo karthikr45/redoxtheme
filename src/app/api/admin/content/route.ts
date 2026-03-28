@@ -15,6 +15,8 @@ const VALID_SECTIONS = [
   "menu",
   "site-settings",
   "about-page",
+  "about-details",
+  "blog-section",
   "contact-page",
   "team-page",
   "faq-page",

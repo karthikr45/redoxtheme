@@ -4,6 +4,7 @@ import shape from "@/assets/imgs/shape/shape-19.webp";
 import Link from "next/link";
 import heroContent from "@/data/content/hero.json";
 import EditableText from "@/components/admin/editable-text";
+import EditableLink from "@/components/admin/editable-link";
 
 export default function HeroFive() {
   return (
@@ -49,14 +50,16 @@ export default function HeroFive() {
                   </EditableText>
                 </div>
                 <div className="btn-wrapper fade-anim" data-delay="0.90">
-                  <Link href={heroContent.buttonLink} className="rr-btn">
-                    <span className="btn-wrap">
-                      <EditableText section="hero" field="buttonLabel" as="span" className="text-one">
-                        {heroContent.buttonLabel}
-                      </EditableText>
-                      <span className="text-two">{heroContent.buttonLabel}</span>
-                    </span>
-                  </Link>
+                  <EditableLink section="hero" field="buttonLink" currentHref={heroContent.buttonLink}>
+                    <Link href={heroContent.buttonLink} className="rr-btn">
+                      <span className="btn-wrap">
+                        <EditableText section="hero" field="buttonLabel" as="span" className="text-one">
+                          {heroContent.buttonLabel}
+                        </EditableText>
+                        <span className="text-two">{heroContent.buttonLabel}</span>
+                      </span>
+                    </Link>
+                  </EditableLink>
                 </div>
               </div>
             </div>
