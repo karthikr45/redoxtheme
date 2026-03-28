@@ -1,7 +1,9 @@
+"use client";
 import Image from "next/image";
 import gallery_img from "@/assets/imgs/gallery/image-51.webp";
 import Link from "next/link";
 import aboutContent from "@/data/content/about.json";
+import EditableText from "@/components/admin/editable-text";
 
 export default function AboutFour() {
   return (
@@ -11,35 +13,38 @@ export default function AboutFour() {
           <div className="section-header fade-anim">
             <div className="section-title-wrapper">
               <div className="subtitle-wrapper">
-                <span className="section-subtitle">
+                <EditableText
+                  section="about"
+                  field="subtitle"
+                  as="span"
+                  className="section-subtitle"
+                >
                   {aboutContent.subtitle}
-                  <svg
-                    viewBox="0 0 99 7"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M1.41291 5.98894C1.41291 5.98894 3.65997 6.01383 4.51655 5.98894C7.19358 5.56824 10.4255 5.80978 13.363 5.56824C17.8256 5.20128 22.1327 4.79415 26.6187 4.79415C31.6715 4.79415 36.6774 4.21934 41.7162 4.18834C46.981 4.15594 52.2465 4.18834 57.5114 4.18834C68.6462 4.18834 79.781 4.18834 90.9158 4.18834C121.155 6.61149 47.6583 -1.30401 1 1.68408"
-                      stroke="#111111"
-                      strokeLinecap="round"
-                      className="svg-elem-1"
-                    ></path>
-                  </svg>
-                </span>
+                </EditableText>
               </div>
               <div className="title-wrapper">
-                <h2 className="section-title font-bdogrotesk-regular fade-anim">
+                <EditableText
+                  section="about"
+                  field="heading"
+                  as="h2"
+                  className="section-title font-bdogrotesk-regular fade-anim"
+                  multiline
+                >
                   {aboutContent.heading}
-                </h2>
+                </EditableText>
                 <div className="btn-wrapper fade-anim">
                   <Link href={aboutContent.primaryButtonLink} className="rr-btn">
                     <span className="btn-wrap">
-                      <span className="text-one">{aboutContent.primaryButtonLabel}</span>
+                      <EditableText section="about" field="primaryButtonLabel" as="span" className="text-one">
+                        {aboutContent.primaryButtonLabel}
+                      </EditableText>
                       <span className="text-two">{aboutContent.primaryButtonLabel}</span>
                     </span>
                   </Link>
                   <Link href={aboutContent.secondaryButtonLink} className="rr-btn-underline">
-                    {aboutContent.secondaryButtonLabel}
+                    <EditableText section="about" field="secondaryButtonLabel" as="span">
+                      {aboutContent.secondaryButtonLabel}
+                    </EditableText>
                     <span className="icon">
                       <Image
                         src="/assets/imgs/icon/icon-5.webp"

@@ -1,7 +1,9 @@
+"use client";
 import Image from "next/image";
-import shape from '@/assets/imgs/shape/shape-19.webp';
+import shape from "@/assets/imgs/shape/shape-19.webp";
 import Link from "next/link";
 import heroContent from "@/data/content/hero.json";
+import EditableText from "@/components/admin/editable-text";
 
 export default function HeroFive() {
   return (
@@ -17,30 +19,41 @@ export default function HeroFive() {
               data-ease="back.out(3)"
             >
               <video className="title-video" loop muted autoPlay playsInline>
-                <source
-                  src={heroContent.videoUrl}
-                  type="video/mp4"
-                />
+                <source src={heroContent.videoUrl} type="video/mp4" />
               </video>
             </div>
             <div className="section-content">
               <div className="section-title-wrapper">
                 <div className="title-wrapper fade-anim">
-                  <h1 className="section-title font-bdogrotesk-regular char-anim">
+                  <EditableText
+                    section="hero"
+                    field="heading"
+                    as="h1"
+                    className="section-title font-bdogrotesk-regular char-anim"
+                    multiline
+                  >
                     {heroContent.heading}
-                  </h1>
+                  </EditableText>
                 </div>
               </div>
               <div className="text-btn-wrapper fade-anim" data-delay="0.60">
                 <div className="text-wrapper fade-anim" data-delay="0.75">
-                  <p className="text">
+                  <EditableText
+                    section="hero"
+                    field="description"
+                    as="p"
+                    className="text"
+                    multiline
+                  >
                     {heroContent.description}
-                  </p>
+                  </EditableText>
                 </div>
                 <div className="btn-wrapper fade-anim" data-delay="0.90">
                   <Link href={heroContent.buttonLink} className="rr-btn">
                     <span className="btn-wrap">
-                      <span className="text-one">{heroContent.buttonLabel}</span>
+                      <EditableText section="hero" field="buttonLabel" as="span" className="text-one">
+                        {heroContent.buttonLabel}
+                      </EditableText>
                       <span className="text-two">{heroContent.buttonLabel}</span>
                     </span>
                   </Link>
@@ -56,7 +69,7 @@ export default function HeroFive() {
               data-delay="1.05"
               src={shape}
               alt="image"
-              style={{height:'auto'}}
+              style={{ height: "auto" }}
             />
           </div>
         </div>

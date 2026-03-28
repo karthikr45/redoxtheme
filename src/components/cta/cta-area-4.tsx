@@ -1,6 +1,8 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import ctaContent from "@/data/content/cta.json";
+import EditableText from "@/components/admin/editable-text";
 
 export default function CtaAreaFour() {
   return (
@@ -12,7 +14,9 @@ export default function CtaAreaFour() {
               <div className="title-wrapper">
                 <h2 className="section-title font-bdogrotesk-regular">
                   <Link href={ctaContent.link}>
-                    {ctaContent.headingLine1}
+                    <EditableText section="cta" field="headingLine1" as="span">
+                      {ctaContent.headingLine1}
+                    </EditableText>
                     <span className="icon">
                       <Image
                         className="first"
@@ -20,7 +24,7 @@ export default function CtaAreaFour() {
                         alt="icon"
                         width={101}
                         height={101}
-                        style={{height:'auto'}}
+                        style={{ height: "auto" }}
                       />
                       <Image
                         className="second"
@@ -28,11 +32,13 @@ export default function CtaAreaFour() {
                         alt="icon"
                         width={101}
                         height={101}
-                        style={{height:'auto'}}
+                        style={{ height: "auto" }}
                       />
                     </span>{" "}
                     <br />
-                    {ctaContent.headingLine2}
+                    <EditableText section="cta" field="headingLine2" as="span">
+                      {ctaContent.headingLine2}
+                    </EditableText>
                   </Link>
                 </h2>
               </div>

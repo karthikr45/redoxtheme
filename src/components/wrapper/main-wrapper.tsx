@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import useScrollSmooth from "@/hooks/use-scroll-smooth";
 import ScrollToTop from "../common/scroll-to-top";
+import InlineEditWrapper from "../admin/inline-edit-wrapper";
 
 type IProps = {
   children: React.ReactNode;
@@ -25,7 +26,7 @@ export default function MainWrapper({ children, bodyCls }: IProps) {
   // Smooth scrolling
   useScrollSmooth();
   return (
-    <>
+    <InlineEditWrapper>
       {/* scroll to top start */}
       <ScrollToTop />
       {/* scroll to top end */}
@@ -38,6 +39,6 @@ export default function MainWrapper({ children, bodyCls }: IProps) {
 
         </div>
       </div>
-    </>
+    </InlineEditWrapper>
   )
 }

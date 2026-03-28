@@ -1,13 +1,18 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import servicesContent from "@/data/content/services.json";
+import EditableText from "@/components/admin/editable-text";
 
 type IProps = {
   spacing?: string;
   title_font?: string;
-}
+};
 
-const ServiceAreaFive = ({spacing='section-spacing-top', title_font='font-bdogrotesk-regular'}:IProps) => {
+const ServiceAreaFive = ({
+  spacing = "section-spacing-top",
+  title_font = "font-bdogrotesk-regular",
+}: IProps) => {
   return (
     <section className="service-area-5">
       <div className="container large">
@@ -15,47 +20,44 @@ const ServiceAreaFive = ({spacing='section-spacing-top', title_font='font-bdogro
           <div className="section-header fade-anim">
             <div className="section-title-wrapper">
               <div className="subtitle-wrapper">
-                <span className="section-subtitle">
+                <EditableText section="services" field="subtitle" as="span" className="section-subtitle">
                   {servicesContent.subtitle}
-                  <svg
-                    viewBox="0 0 99 7"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M1.41291 5.98894C1.41291 5.98894 3.65997 6.01383 4.51655 5.98894C7.19358 5.56824 10.4255 5.80978 13.363 5.56824C17.8256 5.20128 22.1327 4.79415 26.6187 4.79415C31.6715 4.79415 36.6774 4.21934 41.7162 4.18834C46.981 4.15594 52.2465 4.18834 57.5114 4.18834C68.6462 4.18834 79.781 4.18834 90.9158 4.18834C121.155 6.61149 47.6583 -1.30401 1 1.68408"
-                      stroke="#111111"
-                      strokeLinecap="round"
-                      className="svg-elem-1"
-                    />
-                  </svg>
-                </span>
+                </EditableText>
               </div>
               <div className="title-wrapper tt_title_anim">
-                <h2 className={`section-title ${title_font}`}>
+                <EditableText
+                  section="services"
+                  field="heading"
+                  as="h2"
+                  className={`section-title ${title_font}`}
+                >
                   {servicesContent.heading}
-                </h2>
+                </EditableText>
               </div>
             </div>
           </div>
 
           <div className="services-wrapper-box">
             <div className="text-wrapper fade-anim">
-              <p className="info-text">
+              <EditableText section="services" field="description" as="p" className="info-text" multiline>
                 {servicesContent.description}
-              </p>
+              </EditableText>
             </div>
 
             <div className="services-wrapper-5">
-              {servicesContent.items.map((service) => (
+              {servicesContent.items.map((service, idx) => (
                 <a href={service.link} key={service.id}>
                   <div className="service-box fade-anim">
                     <div className="count">
                       <span className="number">{service.number}</span>
                     </div>
                     <div className="content">
-                      <h3 className="title">{service.title}</h3>
-                      <p className="text">{service.text}</p>
+                      <EditableText section="services" field="title" index={idx} as="h3" className="title">
+                        {service.title}
+                      </EditableText>
+                      <EditableText section="services" field="text" index={idx} as="p" className="text">
+                        {service.text}
+                      </EditableText>
                     </div>
                     <div className="thumb">
                       <Image
