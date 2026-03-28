@@ -3,11 +3,9 @@ import { useEffect, useRef } from "react";
 import { useEditMode } from "./edit-mode-provider";
 
 /**
- * AutoEditableWrapper - Makes ALL text and images inside it editable
+ * AutoEditableWrapper - Makes ALL text elements inside it editable
  * without needing to wrap each element individually.
- *
- * Wrap any section/component with this to enable inline editing.
- * It auto-detects headings, paragraphs, spans, buttons, and images.
+ * Skips elements that already have manual EditableText wrappers.
  */
 export default function AutoEditableWrapper({
   section,
@@ -24,99 +22,128 @@ export default function AutoEditableWrapper({
 
     const container = containerRef.current;
 
-    // Find all text elements and make them editable
-    const textElements = container.querySelectorAll(
-      "h1, h2, h3, h4, h5, h6, p, span.section-subtitle, span.text-one, li, .title, .text, .name, .post, .number, .tag, .date, button span.text-one"
-    );
+    // Find all text elements
+    const textSelectors = [
+      "h1", "h2", "h3", "h4", "h5", "h6",
+      "p",
+      ".section-subtitle",
+      ".title",
+      ".text",
+      ".name",
+      ".post",
+      ".number",
+      ".tag",
+      ".date",
+      ".text-one",
+      "li",
+      ".accordion-button",
+      ".accordion-body",
+      ".info-text",
+    ].join(", ");
 
-    const editableEls: HTMLElement[] = [];
+    const textElements = container.querySelectorAll(textSelectors);
+    const cleanupFns: (() => void)[] = [];
 
-    textElements.forEach((el) => {
+    textElements.forEach((el, elIndex) => {
       const htmlEl = el as HTMLElement;
-      // Skip if already editable or if it's inside edit UI
-      if (htmlEl.getAttribute("data-auto-editable") === "true") return;
-      if (htmlEl.closest("[data-edit-ui]")) return;
-      // Skip if it has child block elements (it's a container, not a text node)
-      if (htmlEl.querySelector("h1, h2, h3, h4, h5, h6, div, section")) return;
+
+      // Skip if already has manual EditableText (data-edit-ui)
+      if (htmlEl.getAttribute("data-edit-ui") === "true") return;
+      if (htmlEl.closest("[data-edit-ui='true']")) return;
+
+      // Skip if already processed
+      if (htmlEl.getAttribute("data-auto-edit") === "true") return;
+
+      // Skip containers (elements with block children)
+      if (htmlEl.querySelector("h1, h2, h3, h4, h5, h6, div, section, article")) return;
+
       // Skip if no meaningful text
-      const text = htmlEl.innerText?.trim();
-      if (!text || text.length < 2) return;
+      const originalText = htmlEl.innerText?.trim();
+      if (!originalText || originalText.length < 2) return;
 
-      htmlEl.setAttribute("data-auto-editable", "true");
-      htmlEl.style.cursor = "pointer";
-      htmlEl.style.transition = "outline 0.15s";
+      htmlEl.setAttribute("data-auto-edit", "true");
 
-      const fieldKey = `${section}_${htmlEl.tagName}_${Array.from(textElements).indexOf(el)}`;
+      const fieldKey = `auto_${section}_${elIndex}`;
 
-      // Hover effect
-      htmlEl.addEventListener("mouseenter", () => {
-        if (!isEditMode) return;
+      const onMouseEnter = () => {
         htmlEl.style.outline = "2px dashed #6c5ce7";
         htmlEl.style.outlineOffset = "2px";
         htmlEl.style.borderRadius = "4px";
-      });
+        htmlEl.style.cursor = "pointer";
+      };
 
-      htmlEl.addEventListener("mouseleave", () => {
-        if (!htmlEl.getAttribute("contenteditable")) {
-          htmlEl.style.outline = "none";
+      const onMouseLeave = () => {
+        if (htmlEl.getAttribute("contenteditable") !== "true") {
+          htmlEl.style.outline = "";
+          htmlEl.style.outlineOffset = "";
+          htmlEl.style.cursor = "";
         }
-      });
+      };
 
-      // Click to edit
-      htmlEl.addEventListener("click", (e) => {
-        if (!isEditMode) return;
+      const onClick = (e: Event) => {
         e.preventDefault();
-        e.stopPropagation();
-
         htmlEl.setAttribute("contenteditable", "true");
         htmlEl.style.outline = "2px solid #6c5ce7";
         htmlEl.style.boxShadow = "0 0 0 4px rgba(108,92,231,0.15)";
+        htmlEl.style.cursor = "text";
         htmlEl.focus();
-      });
+      };
 
-      // Save on blur
-      htmlEl.addEventListener("blur", () => {
+      const onBlur = () => {
         htmlEl.removeAttribute("contenteditable");
-        htmlEl.style.outline = "none";
-        htmlEl.style.boxShadow = "none";
+        htmlEl.style.outline = "";
+        htmlEl.style.boxShadow = "";
+        htmlEl.style.cursor = "";
 
         const newText = htmlEl.innerText?.trim();
-        if (newText && newText !== text) {
+        if (newText && newText !== originalText) {
           addChange(fieldKey, {
             section,
             field: fieldKey,
             value: newText,
           });
+          // Show green outline to indicate pending change
           htmlEl.style.outline = "2px solid #00b894";
           htmlEl.style.outlineOffset = "2px";
         }
-      });
+      };
 
-      // Enter to save
-      htmlEl.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" && !e.shiftKey) {
-          e.preventDefault();
+      const onKeyDown = (e: Event) => {
+        const ke = e as KeyboardEvent;
+        if (ke.key === "Enter" && !ke.shiftKey) {
+          ke.preventDefault();
           htmlEl.blur();
         }
-        if (e.key === "Escape") {
-          htmlEl.innerText = text;
+        if (ke.key === "Escape") {
+          htmlEl.innerText = originalText;
           htmlEl.blur();
         }
-      });
+      };
 
-      editableEls.push(htmlEl);
+      htmlEl.addEventListener("mouseenter", onMouseEnter);
+      htmlEl.addEventListener("mouseleave", onMouseLeave);
+      htmlEl.addEventListener("click", onClick);
+      htmlEl.addEventListener("blur", onBlur);
+      htmlEl.addEventListener("keydown", onKeyDown);
+
+      cleanupFns.push(() => {
+        htmlEl.removeAttribute("data-auto-edit");
+        htmlEl.removeAttribute("contenteditable");
+        htmlEl.style.outline = "";
+        htmlEl.style.outlineOffset = "";
+        htmlEl.style.boxShadow = "";
+        htmlEl.style.cursor = "";
+        htmlEl.style.borderRadius = "";
+        htmlEl.removeEventListener("mouseenter", onMouseEnter);
+        htmlEl.removeEventListener("mouseleave", onMouseLeave);
+        htmlEl.removeEventListener("click", onClick);
+        htmlEl.removeEventListener("blur", onBlur);
+        htmlEl.removeEventListener("keydown", onKeyDown);
+      });
     });
 
-    // Cleanup
     return () => {
-      editableEls.forEach((el) => {
-        el.removeAttribute("data-auto-editable");
-        el.removeAttribute("contenteditable");
-        el.style.cursor = "";
-        el.style.outline = "";
-        el.style.outlineOffset = "";
-        el.style.boxShadow = "";
-      });
+      cleanupFns.forEach((fn) => fn());
     };
   }, [isEditMode, section, addChange]);
 

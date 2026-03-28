@@ -9,32 +9,22 @@ function NavigationBlocker({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!isEditMode) return;
 
+    // Only prevent navigation — do NOT stop event propagation
+    // This allows EditableText, EditableImage, EditableLink to still receive clicks
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-
-      // Allow file input clicks (for image upload)
-      if (target.tagName === "INPUT" && (target as HTMLInputElement).type === "file") return;
-
-      // Allow clicks on editable elements
-      if (target.getAttribute("contenteditable") === "true") return;
-      if (target.closest("[contenteditable='true']")) return;
-
-      // Allow clicks on edit mode UI elements (toolbar, popups)
-      if (target.closest("[data-edit-ui]")) return;
-
-      // Block link navigation
       const link = target.closest("a");
+
       if (link) {
         const href = link.getAttribute("href");
         if (href && href !== "#" && !href.startsWith("javascript:")) {
+          // Only prevent the navigation, don't stop the event
           e.preventDefault();
-          e.stopPropagation();
-          return;
         }
       }
     };
 
-    // Use capture phase but don't stop propagation for non-link clicks
+    // Capture phase to intercept before Next.js router handles it
     document.addEventListener("click", handleClick, true);
     return () => document.removeEventListener("click", handleClick, true);
   }, [isEditMode]);

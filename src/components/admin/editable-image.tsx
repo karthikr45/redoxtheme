@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import { useEditMode } from "./edit-mode-provider";
 
 interface EditableImageProps {
@@ -21,89 +21,93 @@ export default function EditableImage({
   const changeKey = `${section}.${field}`;
   const hasPendingChange = pendingChanges.has(changeKey);
 
-  if (!isEditMode) return <>{children}</>;
-
-  const handleClick = () => {
-    // Programmatically trigger file input
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-      fileInputRef.current.click();
+  const openFilePicker = useCallback(() => {
+    const input = fileInputRef.current;
+    if (input) {
+      input.value = "";
+      input.click();
     }
-  };
+  }, []);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     const reader = new FileReader();
     reader.onload = () => {
-      const dataUrl = reader.result as string;
       addChange(changeKey, {
         section,
         field,
-        value: dataUrl,
+        value: reader.result as string,
       });
     };
     reader.readAsDataURL(file);
-  };
+  }, [addChange, changeKey, section, field]);
+
+  if (!isEditMode) return <>{children}</>;
 
   return (
     <div
-      data-edit-ui="true"
       style={{
         position: "relative",
         display: "inline-block",
-        cursor: "pointer",
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        onClick={handleClick}
         style={{
           outline: hasPendingChange
             ? "3px solid #00b894"
             : isHovered
             ? "3px dashed #6c5ce7"
-            : "3px dashed transparent",
+            : "none",
           outlineOffset: 2,
           borderRadius: 4,
-          transition: "outline 0.15s",
         }}
       >
         {children}
       </div>
 
+      {/* Overlay button — always on top, always clickable */}
       {isHovered && (
-        <div
-          onClick={handleClick}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            openFilePicker();
+          }}
           style={{
             position: "absolute",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            background: "rgba(108, 92, 231, 0.85)",
+            background: "rgba(108, 92, 231, 0.9)",
             color: "#fff",
-            padding: "10px 20px",
+            padding: "12px 24px",
             borderRadius: 8,
             fontSize: 14,
-            fontWeight: 600,
+            fontWeight: 700,
             fontFamily: "'Segoe UI', sans-serif",
-            whiteSpace: "nowrap",
-            zIndex: 10,
+            border: "2px solid #fff",
             cursor: "pointer",
+            zIndex: 100,
+            whiteSpace: "nowrap",
+            boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
           }}
         >
-          Click to replace image
-        </div>
+          Change Image
+        </button>
       )}
 
+      {/* Hidden file input */}
       <input
         ref={fileInputRef}
         type="file"
         accept="image/*"
         onChange={handleFileChange}
-        style={{ position: "absolute", top: -9999, left: -9999, opacity: 0 }}
+        style={{ display: "none" }}
       />
     </div>
   );
