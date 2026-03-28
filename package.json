@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@measured/puck": "^0.20.2",
     "@types/imagesloaded": "^4.1.7",
     "bootstrap": "^5.3.7",
     "gsap": "^3.13.0",
