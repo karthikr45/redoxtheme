@@ -1,20 +1,20 @@
 import type { NextConfig } from "next";
+import { withPayload } from "@payloadcms/next/withPayload";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
+        protocol: "https",
         hostname: "rrdevs.net",
-        port: '',
-        pathname: '/**',
+        port: "",
+        pathname: "/**",
       },
-    ]
+    ],
   },
-  sassOptions:{
+  sassOptions: {
     quietDeps: true,
-  }
+  },
 };
 
-export default nextConfig;
+export default withPayload(nextConfig);

@@ -1,0 +1,58 @@
+import { buildConfig } from "payload";
+import { mongooseAdapter } from "@payloadcms/db-mongodb";
+import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import path from "path";
+import sharp from "sharp";
+
+import { Users } from "./collections/Users";
+import { Media } from "./collections/Media";
+import { HeroSection } from "./collections/HeroSection";
+import { AboutSection } from "./collections/AboutSection";
+import { ServicesSection } from "./collections/ServicesSection";
+import { WorksSection } from "./collections/WorksSection";
+import { CtaSection } from "./collections/CtaSection";
+import { MarqueeSection } from "./collections/MarqueeSection";
+import { FooterSection } from "./collections/FooterSection";
+import { Navigation } from "./collections/Navigation";
+import { AboutPage } from "./collections/AboutPage";
+import { ContactPage } from "./collections/ContactPage";
+import { TeamPage } from "./collections/TeamPage";
+import { FaqPage } from "./collections/FaqPage";
+
+export default buildConfig({
+  admin: {
+    user: Users.slug,
+    meta: {
+      titleSuffix: " - Redox Admin",
+    },
+  },
+  editor: lexicalEditor(),
+  collections: [Users, Media],
+  globals: [
+    HeroSection,
+    AboutSection,
+    ServicesSection,
+    WorksSection,
+    CtaSection,
+    MarqueeSection,
+    FooterSection,
+    Navigation,
+    AboutPage,
+    ContactPage,
+    TeamPage,
+    FaqPage,
+  ],
+  db: mongooseAdapter({
+    url: process.env.MONGODB_URI || "mongodb+srv://your-connection-string",
+  }),
+  sharp,
+  typescript: {
+    outputFile: path.resolve(__dirname, "payload-types.ts"),
+  },
+  upload: {
+    limits: {
+      fileSize: 5000000, // 5MB
+    },
+  },
+  secret: process.env.PAYLOAD_SECRET || "your-super-secret-key-change-this",
+});

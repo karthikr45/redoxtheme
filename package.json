@@ -10,16 +10,22 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@payloadcms/db-mongodb": "^3.80.0",
+    "@payloadcms/next": "^3.80.0",
+    "@payloadcms/richtext-lexical": "^3.80.0",
     "@types/imagesloaded": "^4.1.7",
     "bootstrap": "^5.3.7",
+    "graphql": "^16.13.2",
     "gsap": "^3.13.0",
     "imagesloaded": "^5.0.0",
     "jquery": "^3.7.1",
     "magnific-popup": "^1.2.0",
-    "next": "15.4.6",
+    "next": "^15.4.11",
+    "payload": "^3.80.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "sass": "^1.75.0",
+    "sharp": "^0.34.5",
     "swiper": "^11.2.10"
   },
   "devDependencies": {
