@@ -1,27 +1,51 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import HeaderTwo from "@/layout/header/header-two-server";
 import MainWrapper from "@/components/wrapper/main-wrapper";
 import FooterInner from "@/layout/footer/footer-inner";
 import SectionRenderer from "@/components/renderer/section-renderer";
-import { getPageData } from "@/lib/get-page";
+import { getPages } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
-// This catch-all route handles any page created dynamically via admin
-// It checks if a page exists in MongoDB for the given slug
-// If found, it renders the page sections using SectionRenderer
-// If not found, it returns 404 (letting Next.js file-based routes take priority)
+type Props = {
+  params: Promise<{ slug: string[] }>;
+};
 
-export default async function DynamicPage({ params }: { params: Promise<{ slug: string[] }> }) {
+// Generate SEO metadata from DB
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const pageSlug = slug.join("/");
 
-  // Skip admin routes and API routes
+  try {
+    const pages = await getPages();
+    const page = await pages.findOne({ slug: pageSlug });
+    if (page) {
+      return {
+        title: page.metaTitle || page.title || pageSlug,
+        description: page.metaDescription || `${page.title} - Redox Agency`,
+      };
+    }
+  } catch {}
+
+  return { title: pageSlug };
+}
+
+export default async function DynamicPage({ params }: Props) {
+  const { slug } = await params;
+  const pageSlug = slug.join("/");
+
   if (pageSlug.startsWith("admin") || pageSlug.startsWith("api")) {
     notFound();
   }
 
-  const page = await getPageData(pageSlug);
+  let page;
+  try {
+    const pages = await getPages();
+    page = await pages.findOne({ slug: pageSlug });
+  } catch {
+    notFound();
+  }
 
   if (!page || !page.sections || page.sections.length === 0) {
     notFound();
@@ -30,11 +54,9 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
   return (
     <>
       <HeaderTwo />
-      <MainWrapper
-        bodyCls={["body-wrapper", "body-page-inner", "font-heading-sequelsans-romanbody"]}
-      >
+      <MainWrapper bodyCls={["body-wrapper", "body-page-inner", "font-heading-sequelsans-romanbody"]}>
         <main>
-          {page.sections.map((section, idx) => (
+          {page.sections.map((section: Record<string, unknown>, idx: number) => (
             <SectionRenderer key={idx} section={section} />
           ))}
         </main>

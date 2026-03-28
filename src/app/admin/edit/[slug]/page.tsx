@@ -5,7 +5,7 @@ import { sectionTypes, getSectionType } from "@/lib/section-registry";
 import type { FieldDef } from "@/lib/section-registry";
 
 interface Section { type: string; variant?: string; [key: string]: unknown; }
-interface PageData { _id?: string; slug: string; title: string; sections: Section[]; versions?: unknown[]; }
+interface PageData { _id?: string; slug: string; title: string; metaTitle?: string; metaDescription?: string; sections: Section[]; versions?: unknown[]; }
 
 const inputStyle: React.CSSProperties = { width: "100%", padding: "8px 12px", border: "1px solid #ddd", borderRadius: 6, fontSize: 14, boxSizing: "border-box", fontFamily: "inherit" };
 const textareaStyle: React.CSSProperties = { ...inputStyle, minHeight: 70, resize: "vertical" };
@@ -197,10 +197,22 @@ export default function PageEditor() {
         </div>
       </div>
 
-      {/* Page Title */}
+      {/* Page Title & SEO */}
       <div style={{ background: "#fff", borderRadius: 10, padding: 16, marginBottom: 16, border: "1px solid #e8e8e8" }}>
-        <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: "#555", marginBottom: 4, textTransform: "uppercase" }}>Page Title</label>
-        <input style={inputStyle} value={page.title} onChange={e => setPage({ ...page, title: e.target.value })} />
+        <div style={{ marginBottom: 12 }}>
+          <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: "#555", marginBottom: 4, textTransform: "uppercase" }}>Page Title</label>
+          <input style={inputStyle} value={page.title} onChange={e => setPage({ ...page, title: e.target.value })} />
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+          <div>
+            <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: "#555", marginBottom: 4, textTransform: "uppercase" }}>SEO Title <span style={{ color: "#888", fontWeight: 400, textTransform: "none" }}>(shows in browser tab)</span></label>
+            <input style={inputStyle} value={page.metaTitle || ""} onChange={e => setPage({ ...page, metaTitle: e.target.value })} placeholder={page.title} />
+          </div>
+          <div>
+            <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: "#555", marginBottom: 4, textTransform: "uppercase" }}>SEO Description <span style={{ color: "#888", fontWeight: 400, textTransform: "none" }}>(Google search result)</span></label>
+            <input style={inputStyle} value={page.metaDescription || ""} onChange={e => setPage({ ...page, metaDescription: e.target.value })} placeholder="Brief description for search engines..." />
+          </div>
+        </div>
       </div>
 
       {/* Sections (Blocks) */}

@@ -72,8 +72,99 @@ function dbToPuck(sections: Record<string, unknown>[]): Data {
 
 function puckToDb(data: Data): Record<string, unknown>[] {
   return data.content.map((item) => {
-    const { id, ...rest } = item.props;
-    return { type: PUCK_TO_DB[item.type] || item.type, ...rest };
+    const { id, ...flat } = item.props;
+    const type = PUCK_TO_DB[item.type] || item.type;
+    const result: Record<string, unknown> = { type };
+
+    // Separate flat numbered props back into arrays
+    const items: Record<string, unknown>[] = [];
+    const members: Record<string, unknown>[] = [];
+    const socialLinks: Record<string, unknown>[] = [];
+    const faqItems: Record<string, unknown>[] = [];
+
+    for (const [key, value] of Object.entries(flat)) {
+      // Work items: item1Title, item2Tag, etc.
+      const itemMatch = key.match(/^item(\d+)([A-Z]\w*)$/);
+      if (itemMatch) {
+        const idx = parseInt(itemMatch[1]) - 1;
+        const field = itemMatch[2].charAt(0).toLowerCase() + itemMatch[2].slice(1);
+        if (!items[idx]) items[idx] = {};
+        items[idx][field] = value;
+        continue;
+      }
+
+      // Service items: svc1Title, svc2Number, etc.
+      const svcMatch = key.match(/^svc(\d+)([A-Z]\w*)$/);
+      if (svcMatch) {
+        const idx = parseInt(svcMatch[1]) - 1;
+        const field = svcMatch[2].charAt(0).toLowerCase() + svcMatch[2].slice(1);
+        if (!items[idx]) items[idx] = {};
+        items[idx][field] = value;
+        continue;
+      }
+
+      // Team members: member1Name, member2Post, etc.
+      const memberMatch = key.match(/^member(\d+)([A-Z]\w*)$/);
+      if (memberMatch) {
+        const idx = parseInt(memberMatch[1]) - 1;
+        const field = memberMatch[2].charAt(0).toLowerCase() + memberMatch[2].slice(1);
+        if (!members[idx]) members[idx] = {};
+        members[idx][field] = value;
+        continue;
+      }
+
+      // Social links: social1Label, social2Href, etc.
+      const socialMatch = key.match(/^social(\d+)([A-Z]\w*)$/);
+      if (socialMatch) {
+        const idx = parseInt(socialMatch[1]) - 1;
+        const field = socialMatch[2].charAt(0).toLowerCase() + socialMatch[2].slice(1);
+        if (!socialLinks[idx]) socialLinks[idx] = {};
+        socialLinks[idx][field] = value;
+        continue;
+      }
+
+      // FAQ items: q1, a1, q2, a2, etc.
+      const faqQ = key.match(/^q(\d+)$/);
+      if (faqQ) {
+        const idx = parseInt(faqQ[1]) - 1;
+        if (!faqItems[idx]) faqItems[idx] = {};
+        faqItems[idx].question = value;
+        continue;
+      }
+      const faqA = key.match(/^a(\d+)$/);
+      if (faqA) {
+        const idx = parseInt(faqA[1]) - 1;
+        if (!faqItems[idx]) faqItems[idx] = {};
+        faqItems[idx].answer = value;
+        continue;
+      }
+
+      // Stats: stat1Label, stat1Value, etc.
+      const statMatch = key.match(/^stat(\d+)([A-Z]\w*)$/);
+      if (statMatch) {
+        const idx = parseInt(statMatch[1]) - 1;
+        const field = statMatch[2].charAt(0).toLowerCase() + statMatch[2].slice(1);
+        if (!items[idx]) items[idx] = {};
+        items[idx][field] = value;
+        continue;
+      }
+
+      // Regular field
+      result[key] = value;
+    }
+
+    // Add arrays back if they have data
+    const filledItems = items.filter((i) => i && Object.keys(i).length > 0);
+    const filledMembers = members.filter((m) => m && Object.keys(m).length > 0);
+    const filledSocial = socialLinks.filter((s) => s && Object.keys(s).length > 0);
+    const filledFaq = faqItems.filter((f) => f && Object.keys(f).length > 0);
+
+    if (filledItems.length > 0) result.items = filledItems;
+    if (filledMembers.length > 0) result.members = filledMembers;
+    if (filledSocial.length > 0) result.socialLinks = filledSocial;
+    if (filledFaq.length > 0) result.items = filledFaq;
+
+    return result;
   });
 }
 

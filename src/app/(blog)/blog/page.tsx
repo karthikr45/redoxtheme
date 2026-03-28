@@ -3,7 +3,7 @@ import HeaderTwo from "@/layout/header/header-two-server";
 import MainWrapper from "@/components/wrapper/main-wrapper";
 import FooterInner from "@/layout/footer/footer-inner";
 import PageTitle from "@/components/common/page-title";
-import BlogAreaTwo from "@/components/blog/blog-area-2";
+import BlogAreaTwo from "@/components/blog/blog-area-2-server";
 import BlogWrapper from "./_components/blog-wrapper";
 import { getPageData, getSection } from "@/lib/get-page";
 
