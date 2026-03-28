@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import servicesContent from "@/data/content/services.json";
 import EditableText from "@/components/admin/editable-text";
+import EditableImage from "@/components/admin/editable-image";
 
 type IProps = {
   spacing?: string;
@@ -60,12 +61,14 @@ const ServiceAreaFive = ({
                       </EditableText>
                     </div>
                     <div className="thumb">
+                      <EditableImage section="services" field="image" currentSrc={service.image}>
                       <Image
                         src={service.image}
                         alt={service.title}
                         width={165}
                         height={92}
                       />
+                      </EditableImage>
                     </div>
                   </div>
                 </a>

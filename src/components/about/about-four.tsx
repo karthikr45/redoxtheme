@@ -5,6 +5,7 @@ import Link from "next/link";
 import aboutContent from "@/data/content/about.json";
 import EditableText from "@/components/admin/editable-text";
 import EditableLink from "@/components/admin/editable-link";
+import EditableImage from "@/components/admin/editable-image";
 
 export default function AboutFour() {
   return (
@@ -64,12 +65,14 @@ export default function AboutFour() {
             </div>
           </div>
           <div className="thumb parallax-view go_full">
-            <Image
-              src={gallery_img}
-              alt="image"
-              data-speed="0.8"
-              style={{ height: "auto" }}
-            />
+            <EditableImage section="about" field="image" currentSrc="/assets/imgs/gallery/image-51.webp">
+              <Image
+                src={gallery_img}
+                alt="image"
+                data-speed="0.8"
+                style={{ height: "auto" }}
+              />
+            </EditableImage>
           </div>
         </div>
       </div>

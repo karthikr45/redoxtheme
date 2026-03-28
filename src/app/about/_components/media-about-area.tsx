@@ -4,6 +4,7 @@ import gallery_img from "@/assets/imgs/gallery/image-23.webp";
 import Link from "next/link";
 import aboutPage from "@/data/content/about-page.json";
 import EditableText from "@/components/admin/editable-text";
+import EditableImage from "@/components/admin/editable-image";
 
 export default function MediaAboutArea() {
   return (
@@ -12,12 +13,14 @@ export default function MediaAboutArea() {
         <div className="media-area-page-about-inner">
           <div className="section-content-wrapper fade-anim">
             <div className="area-thumb parallax-view">
-              <Image
-                src={gallery_img}
-                alt="image"
-                data-speed="0.8"
-                style={{ height: "auto" }}
-              />
+              <EditableImage section="about-page" field="mediaImage" currentSrc="/assets/imgs/gallery/image-23.webp">
+                <Image
+                  src={gallery_img}
+                  alt="image"
+                  data-speed="0.8"
+                  style={{ height: "auto" }}
+                />
+              </EditableImage>
             </div>
             <div className="section-content">
               <div className="section-title-wrapper">

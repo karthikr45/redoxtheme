@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import worksContent from "@/data/content/works.json";
+import EditableImage from "@/components/admin/editable-image";
 import EditableText from "@/components/admin/editable-text";
 
 const WorkAreaFour = () => {
@@ -57,13 +58,15 @@ const WorkAreaFour = () => {
                       data-cursor-text-red
                     >
                       <Link href="/portfolio-details">
-                        <Image
-                          src={work.image}
-                          alt="image"
-                          width={805}
-                          height={630}
-                          style={{ height: "auto" }}
-                        />
+                        <EditableImage section="works" field="image" currentSrc={work.image}>
+                          <Image
+                            src={work.image}
+                            alt="image"
+                            width={805}
+                            height={630}
+                            style={{ height: "auto" }}
+                          />
+                        </EditableImage>
                       </Link>
                     </div>
                   </div>

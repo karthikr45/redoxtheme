@@ -1,40 +1,31 @@
 "use client";
 import { useRef, useState } from "react";
 import { useEditMode } from "./edit-mode-provider";
-import Image from "next/image";
 
 interface EditableImageProps {
   section: string;
   field: string;
-  src: string;
-  alt: string;
-  width?: number;
-  height?: number;
-  className?: string;
-  style?: React.CSSProperties;
-  [key: string]: unknown;
+  currentSrc: string;
+  children: React.ReactNode;
 }
 
 export default function EditableImage({
   section,
   field,
-  src,
-  alt,
-  width,
-  height,
-  className,
-  style,
-  ...rest
+  currentSrc,
+  children,
 }: EditableImageProps) {
   const { isEditMode, addChange, pendingChanges } = useEditMode();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [previewSrc, setPreviewSrc] = useState<string | null>(null);
   const [isHovered, setIsHovered] = useState(false);
   const changeKey = `${section}.${field}`;
   const hasPendingChange = pendingChanges.has(changeKey);
 
-  const handleClick = () => {
-    if (!isEditMode) return;
+  if (!isEditMode) return <>{children}</>;
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     fileInputRef.current?.click();
   };
 
@@ -45,7 +36,6 @@ export default function EditableImage({
     const reader = new FileReader();
     reader.onload = () => {
       const dataUrl = reader.result as string;
-      setPreviewSrc(dataUrl);
       addChange(changeKey, {
         section,
         field,
@@ -55,37 +45,20 @@ export default function EditableImage({
     reader.readAsDataURL(file);
   };
 
-  const displaySrc = previewSrc || src;
-
-  if (!isEditMode) {
-    return (
-      <Image
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        className={className}
-        style={style}
-        {...rest}
-      />
-    );
-  }
-
   return (
     <span
-      style={{ position: "relative", display: "inline-block", cursor: "pointer" }}
+      style={{
+        position: "relative",
+        display: "inline-block",
+        cursor: "pointer",
+      }}
       onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Image
-        src={displaySrc}
-        alt={alt}
-        width={width}
-        height={height}
-        className={className}
+      <span
         style={{
-          ...style,
+          display: "inline-block",
           outline: hasPendingChange
             ? "3px solid #00b894"
             : isHovered
@@ -95,8 +68,10 @@ export default function EditableImage({
           borderRadius: 4,
           transition: "outline 0.15s",
         }}
-        {...rest}
-      />
+      >
+        {children}
+      </span>
+
       {isHovered && (
         <div
           style={{
@@ -106,9 +81,9 @@ export default function EditableImage({
             transform: "translate(-50%, -50%)",
             background: "rgba(108, 92, 231, 0.85)",
             color: "#fff",
-            padding: "8px 16px",
-            borderRadius: 6,
-            fontSize: 13,
+            padding: "10px 20px",
+            borderRadius: 8,
+            fontSize: 14,
             fontWeight: 600,
             fontFamily: "'Segoe UI', sans-serif",
             whiteSpace: "nowrap",
@@ -119,6 +94,7 @@ export default function EditableImage({
           Click to replace image
         </div>
       )}
+
       <input
         ref={fileInputRef}
         type="file"
