@@ -19,9 +19,11 @@ export default function HeroFive() {
               data-offset="100"
               data-ease="back.out(3)"
             >
-              <video className="title-video" loop muted autoPlay playsInline>
-                <source src={heroContent.videoUrl} type="video/mp4" />
-              </video>
+              <EditableLink section="hero" field="videoUrl" currentHref={heroContent.videoUrl}>
+                <video className="title-video" loop muted autoPlay playsInline>
+                  <source src={heroContent.videoUrl} type="video/mp4" />
+                </video>
+              </EditableLink>
             </div>
             <div className="section-content">
               <div className="section-title-wrapper">

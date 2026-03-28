@@ -23,10 +23,12 @@ export default function EditableImage({
 
   if (!isEditMode) return <>{children}</>;
 
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    fileInputRef.current?.click();
+  const handleClick = () => {
+    // Programmatically trigger file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+      fileInputRef.current.click();
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,19 +48,19 @@ export default function EditableImage({
   };
 
   return (
-    <span
+    <div
+      data-edit-ui="true"
       style={{
         position: "relative",
         display: "inline-block",
         cursor: "pointer",
       }}
-      onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <span
+      <div
+        onClick={handleClick}
         style={{
-          display: "inline-block",
           outline: hasPendingChange
             ? "3px solid #00b894"
             : isHovered
@@ -70,10 +72,11 @@ export default function EditableImage({
         }}
       >
         {children}
-      </span>
+      </div>
 
       {isHovered && (
         <div
+          onClick={handleClick}
           style={{
             position: "absolute",
             top: "50%",
@@ -87,8 +90,8 @@ export default function EditableImage({
             fontWeight: 600,
             fontFamily: "'Segoe UI', sans-serif",
             whiteSpace: "nowrap",
-            pointerEvents: "none",
             zIndex: 10,
+            cursor: "pointer",
           }}
         >
           Click to replace image
@@ -100,8 +103,8 @@ export default function EditableImage({
         type="file"
         accept="image/*"
         onChange={handleFileChange}
-        style={{ display: "none" }}
+        style={{ position: "absolute", top: -9999, left: -9999, opacity: 0 }}
       />
-    </span>
+    </div>
   );
 }

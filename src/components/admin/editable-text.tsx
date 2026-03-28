@@ -107,7 +107,12 @@ export default function EditableText({
         style={editStyles}
         contentEditable={isEditing}
         suppressContentEditableWarning
-        onClick={handleClick}
+        data-edit-ui="true"
+        onClick={(e: React.MouseEvent) => {
+          e.preventDefault();
+          e.stopPropagation();
+          handleClick();
+        }}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
         onMouseEnter={() => setIsHovered(true)}

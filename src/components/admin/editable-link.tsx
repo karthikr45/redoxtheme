@@ -31,7 +31,7 @@ export default function EditableLink({
   };
 
   return (
-    <span style={{ position: "relative", display: "inline-block" }}>
+    <span data-edit-ui="true" style={{ position: "relative", display: "inline-block" }}>
       <span
         onClick={(e) => {
           e.preventDefault();

@@ -9,20 +9,32 @@ function NavigationBlocker({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!isEditMode) return;
 
-    // Block all link clicks and navigation in edit mode
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
+
+      // Allow file input clicks (for image upload)
+      if (target.tagName === "INPUT" && (target as HTMLInputElement).type === "file") return;
+
+      // Allow clicks on editable elements
+      if (target.getAttribute("contenteditable") === "true") return;
+      if (target.closest("[contenteditable='true']")) return;
+
+      // Allow clicks on edit mode UI elements (toolbar, popups)
+      if (target.closest("[data-edit-ui]")) return;
+
+      // Block link navigation
       const link = target.closest("a");
       if (link) {
         const href = link.getAttribute("href");
-        // Allow # links and javascript: links
         if (href && href !== "#" && !href.startsWith("javascript:")) {
           e.preventDefault();
           e.stopPropagation();
+          return;
         }
       }
     };
 
+    // Use capture phase but don't stop propagation for non-link clicks
     document.addEventListener("click", handleClick, true);
     return () => document.removeEventListener("click", handleClick, true);
   }, [isEditMode]);
