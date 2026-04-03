@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { RenderText } from "@/lib/render-text";
 
 interface ServiceItem {
   number: string;
@@ -57,7 +58,7 @@ const ServiceAreaFive = ({ spacing = "section-spacing-top", title_font = "font-b
           </div>
           <div className="services-wrapper-box">
             <div className="text-wrapper fade-anim">
-              <p className="info-text">{description}</p>
+              <RenderText content={description} as="p" className="info-text" />
             </div>
             <div className="services-wrapper-5">
               {items.map((service, idx) => (

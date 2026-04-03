@@ -1,5 +1,6 @@
 import type { Config } from "@measured/puck";
 import ImageUploadField from "@/components/puck-fields/image-upload-field";
+import RichTextField from "@/components/puck-fields/rich-text-field";
 import HeroFive from "@/components/hero/hero-five";
 import WorkAreaFour from "@/components/work/work-area-4";
 import MarqueeText from "@/components/marquee/marquee-text";
@@ -13,8 +14,8 @@ export const puckConfig: Config = {
     Hero: {
       label: "Hero Section",
       fields: {
-        heading: { type: "textarea", label: "Main Heading" },
-        description: { type: "textarea", label: "Description" },
+        heading: { type: "custom", label: "Main Heading", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <RichTextField value={value} onChange={onChange} /> },
+        description: { type: "custom", label: "Description", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <RichTextField value={value} onChange={onChange} /> },
         buttonLabel: { type: "text", label: "Button Text" },
         buttonLink: { type: "text", label: "Button Link" },
         videoUrl: { type: "custom", label: "Video URL", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <ImageUploadField value={value} onChange={onChange} /> },
@@ -108,7 +109,7 @@ export const puckConfig: Config = {
       label: "About Section",
       fields: {
         subtitle: { type: "text", label: "Subtitle" },
-        heading: { type: "textarea", label: "Heading" },
+        heading: { type: "custom", label: "Heading", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <RichTextField value={value} onChange={onChange} /> },
         primaryButtonLabel: { type: "text", label: "Primary Button Text" },
         primaryButtonLink: { type: "text", label: "Primary Button Link" },
         secondaryButtonLabel: { type: "text", label: "Secondary Button Text" },
@@ -132,7 +133,7 @@ export const puckConfig: Config = {
       fields: {
         subtitle: { type: "text", label: "Subtitle" },
         heading: { type: "text", label: "Heading" },
-        description: { type: "textarea", label: "Description" },
+        description: { type: "custom", label: "Description", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <RichTextField value={value} onChange={onChange} /> },
         svc1Number: { type: "text", label: "Service 1 - Number" },
         svc1Title: { type: "text", label: "Service 1 - Title" },
         svc1Text: { type: "textarea", label: "Service 1 - Description" },
@@ -206,7 +207,7 @@ export const puckConfig: Config = {
       label: "Contact Section",
       fields: {
         subtitle: { type: "text", label: "Subtitle" },
-        heading: { type: "textarea", label: "Heading" },
+        heading: { type: "custom", label: "Heading", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <RichTextField value={value} onChange={onChange} /> },
         email: { type: "text", label: "Email Address" },
         submitButtonLabel: { type: "text", label: "Submit Button Text" },
         social1Label: { type: "text", label: "Social 1 - Name" },
@@ -267,7 +268,7 @@ export const puckConfig: Config = {
       fields: {
         subtitle: { type: "text", label: "Subtitle" },
         heading: { type: "text", label: "Heading" },
-        description: { type: "textarea", label: "Description" },
+        description: { type: "custom", label: "Description", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <RichTextField value={value} onChange={onChange} /> },
         member1Name: { type: "text", label: "Member 1 - Name" },
         member1Post: { type: "text", label: "Member 1 - Position" },
         member1Image: { type: "custom", label: "Member 1 - Image", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <ImageUploadField value={value} onChange={onChange} /> },
@@ -413,7 +414,7 @@ export const puckConfig: Config = {
 
     ClientLogos: {
       label: "Client Logos",
-      fields: { description: { type: "textarea", label: "Description" } },
+      fields: { description: { type: "custom", label: "Description", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <RichTextField value={value} onChange={onChange} /> } },
       defaultProps: { description: "Help to brands growing up and show their success stories to the world" },
       render: (props) => (
         <section className="client-area"><div className="container large"><div className="section-header"><div className="text-wrapper"><p className="text">{props.description}</p></div></div></div></section>

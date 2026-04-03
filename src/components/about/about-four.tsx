@@ -1,6 +1,7 @@
 import Image from "next/image";
 import gallery_img from "@/assets/imgs/gallery/image-51.webp";
 import Link from "next/link";
+import { RenderText } from "@/lib/render-text";
 
 interface AboutData {
   subtitle?: string;
@@ -35,7 +36,7 @@ export default function AboutFour({ data }: { data?: AboutData }) {
                 </span>
               </div>
               <div className="title-wrapper">
-                <h2 className="section-title font-bdogrotesk-regular fade-anim">{heading}</h2>
+                <RenderText content={heading} as="h2" className="section-title font-bdogrotesk-regular fade-anim" />
                 <div className="btn-wrapper fade-anim">
                   <Link href={primaryButtonLink} className="rr-btn">
                     <span className="btn-wrap">
