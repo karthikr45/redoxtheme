@@ -38,6 +38,7 @@ interface RichTextFieldProps {
 
 export default function RichTextField({ value, onChange }: RichTextFieldProps) {
   const editor = useEditor({
+    immediatelyRender: false,
     extensions: [
       StarterKit,
       Underline,
