@@ -1,8 +1,10 @@
 // @ts-nocheck
 import type { Config } from "@measured/puck";
 import ImageUploadField from "@/components/puck-fields/image-upload-field";
-import RichTextField from "@/components/puck-fields/rich-text-field";
+import dynamic from "next/dynamic";
 import HeroFive from "@/components/hero/hero-five";
+
+const RichTextField = dynamic(() => import("@/components/puck-fields/rich-text-field"), { ssr: false });
 import WorkAreaFour from "@/components/work/work-area-4";
 import MarqueeText from "@/components/marquee/marquee-text";
 import AboutFour from "@/components/about/about-four";
