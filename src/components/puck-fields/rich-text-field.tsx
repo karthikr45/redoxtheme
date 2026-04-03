@@ -79,7 +79,7 @@ export default function RichTextField({ value, onChange }: RichTextFieldProps) {
   };
 
   return (
-    <div style={{ border: "1px solid #ddd", borderRadius: 8, overflow: "hidden" }}>
+    <div style={{ border: "1px solid #ddd", borderRadius: 8, overflow: "hidden", fontFamily: "'Segoe UI', system-ui, -apple-system, sans-serif" }}>
       {/* Toolbar */}
       <div style={{ display: "flex", flexWrap: "wrap", gap: 2, padding: "6px 8px", background: "#fafafa", borderBottom: "1px solid #eee" }}>
         {/* Text formatting */}
@@ -188,16 +188,18 @@ export default function RichTextField({ value, onChange }: RichTextFieldProps) {
       <style>{`
         .tiptap {
           outline: none;
+          font-family: inherit;
         }
-        .tiptap p { margin: 0 0 8px; }
-        .tiptap h1 { font-size: 28px; font-weight: 700; margin: 0 0 8px; }
-        .tiptap h2 { font-size: 24px; font-weight: 700; margin: 0 0 8px; }
-        .tiptap h3 { font-size: 20px; font-weight: 600; margin: 0 0 8px; }
-        .tiptap h4 { font-size: 18px; font-weight: 600; margin: 0 0 8px; }
-        .tiptap ul, .tiptap ol { padding-left: 20px; margin: 0 0 8px; }
-        .tiptap blockquote { border-left: 3px solid #6c5ce7; padding-left: 12px; margin: 0 0 8px; color: #666; }
+        .tiptap p { margin: 0 0 8px; font-family: inherit; font-size: 14px; line-height: 1.6; }
+        .tiptap h1 { font-size: 28px; font-weight: 700; margin: 0 0 8px; font-family: inherit; }
+        .tiptap h2 { font-size: 24px; font-weight: 700; margin: 0 0 8px; font-family: inherit; }
+        .tiptap h3 { font-size: 20px; font-weight: 600; margin: 0 0 8px; font-family: inherit; }
+        .tiptap h4 { font-size: 18px; font-weight: 600; margin: 0 0 8px; font-family: inherit; }
+        .tiptap ul, .tiptap ol { padding-left: 20px; margin: 0 0 8px; font-family: inherit; }
+        .tiptap blockquote { border-left: 3px solid #6c5ce7; padding-left: 12px; margin: 0 0 8px; color: #666; font-family: inherit; }
         .tiptap a { color: #6c5ce7; text-decoration: underline; }
         .tiptap mark { padding: 2px 4px; border-radius: 2px; }
+        .tiptap * { font-family: inherit; }
       `}</style>
     </div>
   );
