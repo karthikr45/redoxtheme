@@ -56,7 +56,7 @@ export default async function DynamicPage({ params }: Props) {
       <HeaderTwo />
       <MainWrapper bodyCls={["body-wrapper", "body-page-inner", "font-heading-sequelsans-romanbody"]}>
         <main>
-          {page.sections.map((section: Record<string, unknown>, idx: number) => (
+          {page.sections.map((section: { type: string; [key: string]: unknown }, idx: number) => (
             <SectionRenderer key={idx} section={section} />
           ))}
         </main>
