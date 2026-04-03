@@ -1,10 +1,7 @@
 // @ts-nocheck
 import type { Config } from "@measured/puck";
 import ImageUploadField from "@/components/puck-fields/image-upload-field";
-import dynamic from "next/dynamic";
 import HeroFive from "@/components/hero/hero-five";
-
-const RichTextField = dynamic(() => import("@/components/puck-fields/rich-text-field"), { ssr: false });
 import WorkAreaFour from "@/components/work/work-area-4";
 import MarqueeText from "@/components/marquee/marquee-text";
 import AboutFour from "@/components/about/about-four";
@@ -18,7 +15,7 @@ export const puckConfig: Config = {
       label: "Hero Section",
       fields: {
         heading: { type: "text", label: "Main Heading" },
-        description: { type: "custom", label: "Description", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <RichTextField value={value} onChange={onChange} /> },
+        description: { type: "textarea", label: "Description" },
         buttonLabel: { type: "text", label: "Button Text" },
         buttonLink: { type: "text", label: "Button Link" },
         videoUrl: { type: "custom", label: "Video URL", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <ImageUploadField value={value} onChange={onChange} /> },
@@ -136,7 +133,7 @@ export const puckConfig: Config = {
       fields: {
         subtitle: { type: "text", label: "Subtitle" },
         heading: { type: "text", label: "Heading" },
-        description: { type: "custom", label: "Description", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <RichTextField value={value} onChange={onChange} /> },
+        description: { type: "textarea", label: "Description" },
         svc1Number: { type: "text", label: "Service 1 - Number" },
         svc1Title: { type: "text", label: "Service 1 - Title" },
         svc1Text: { type: "textarea", label: "Service 1 - Description" },
@@ -271,7 +268,7 @@ export const puckConfig: Config = {
       fields: {
         subtitle: { type: "text", label: "Subtitle" },
         heading: { type: "text", label: "Heading" },
-        description: { type: "custom", label: "Description", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <RichTextField value={value} onChange={onChange} /> },
+        description: { type: "textarea", label: "Description" },
         member1Name: { type: "text", label: "Member 1 - Name" },
         member1Post: { type: "text", label: "Member 1 - Position" },
         member1Image: { type: "custom", label: "Member 1 - Image", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <ImageUploadField value={value} onChange={onChange} /> },
@@ -417,7 +414,7 @@ export const puckConfig: Config = {
 
     ClientLogos: {
       label: "Client Logos",
-      fields: { description: { type: "custom", label: "Description", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <RichTextField value={value} onChange={onChange} /> } },
+      fields: { description: { type: "textarea", label: "Description" } },
       defaultProps: { description: "Help to brands growing up and show their success stories to the world" },
       render: (props) => (
         <section className="client-area"><div className="container large"><div className="section-header"><div className="text-wrapper"><p className="text">{props.description}</p></div></div></div></section>

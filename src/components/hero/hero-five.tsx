@@ -1,7 +1,6 @@
 import Image from "next/image";
 import shape from '@/assets/imgs/shape/shape-19.webp';
 import Link from "next/link";
-import { RenderText } from "@/lib/render-text";
 
 interface HeroData {
   heading?: string;
@@ -36,7 +35,7 @@ export default function HeroFive({ data }: { data?: HeroData }) {
               </div>
               <div className="text-btn-wrapper fade-anim" data-delay="0.60">
                 <div className="text-wrapper fade-anim" data-delay="0.75">
-                  <RenderText content={description} as="p" className="text" />
+                  <p className="text">{description}</p>
                 </div>
                 <div className="btn-wrapper fade-anim" data-delay="0.90">
                   <Link href={buttonLink} className="rr-btn">

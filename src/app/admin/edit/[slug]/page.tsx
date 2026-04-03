@@ -3,9 +3,6 @@ import { useEffect, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { sectionTypes, getSectionType } from "@/lib/section-registry";
 import type { FieldDef } from "@/lib/section-registry";
-import dynamic from "next/dynamic";
-
-const RichTextField = dynamic(() => import("@/components/puck-fields/rich-text-field"), { ssr: false });
 
 interface Section { type: string; variant?: string; [key: string]: unknown; }
 interface PageData { _id?: string; slug: string; title: string; metaTitle?: string; metaDescription?: string; sections: Section[]; versions?: unknown[]; }
@@ -32,7 +29,7 @@ function FieldEditor({ field, value, onChange }: { field: FieldDef; value: unkno
     return (
       <div style={{ marginBottom: 12 }}>
         <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: "#555", marginBottom: 4, textTransform: "uppercase" }}>{field.label}</label>
-        <RichTextField value={(value as string) || ""} onChange={(v) => onChange(v)} />
+        <textarea style={textareaStyle} value={(value as string) || ""} onChange={e => onChange(e.target.value)} />
       </div>
     );
   }

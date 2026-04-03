@@ -1,7 +1,6 @@
 import Image from "next/image";
 import gallery_img from "@/assets/imgs/gallery/image-51.webp";
 import Link from "next/link";
-import { RenderText } from "@/lib/render-text";
 
 interface AboutData {
   subtitle?: string;
