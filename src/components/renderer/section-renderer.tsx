@@ -159,24 +159,26 @@ function FunFactSection({ data }: { data: SectionData }) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function SectionRenderer({ section }: { section: SectionData }) {
+  const d = section as any;
   switch (section.type) {
     case "hero":
-      return <HeroFive data={section} />;
+      return <HeroFive data={d} />;
     case "works":
-      return <WorkAreaFour data={section} />;
+      return <WorkAreaFour data={d} />;
     case "marquee":
-      return <MarqueeText data={section} />;
+      return <MarqueeText data={d} />;
     case "about":
-      return <AboutFour data={section} />;
+      return <AboutFour data={d} />;
     case "services":
-      return <ServiceAreaFive data={section} />;
+      return <ServiceAreaFive data={d} />;
     case "cta":
-      return <CtaAreaFour data={section} />;
+      return <CtaAreaFour data={d} />;
     case "page-title":
       return <PageTitle title={(section.title as string) || ""} />;
     case "contact":
-      return <ContactArea data={section} />;
+      return <ContactArea data={d} />;
     case "team":
       return <TeamSection data={section} />;
     case "faq":
