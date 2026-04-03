@@ -24,7 +24,7 @@ function TeamSection({ data }: { data: SectionData }) {
         <div className="team-area-inner section-spacing">
           <div className="section-header fade-anim">
             <div className="section-title-wrapper">
-              {data.subtitle && (
+              {typeof data.subtitle === "string" && data.subtitle && (
                 <div className="subtitle-wrapper">
                   <span className="section-subtitle">{data.subtitle as string}</span>
                 </div>
@@ -35,7 +35,7 @@ function TeamSection({ data }: { data: SectionData }) {
                 </h2>
               </div>
             </div>
-            {data.description && (
+            {typeof data.description === "string" && data.description && (
               <div className="text-wrapper">
                 <p className="text">{data.description as string}</p>
               </div>
@@ -104,7 +104,7 @@ function BlogSection({ data }: { data: SectionData }) {
               <div className="title-wrapper">
                 <h2 className="section-title font-sequelsans-romanbody">
                   {(data.heading as string) || "Latest articles"}
-                  {data.buttonLabel && (
+                  {typeof data.buttonLabel === "string" && data.buttonLabel && (
                     <span className="mb-14">
                       <Link href={(data.buttonLink as string) || "/blog"} className="rr-btn-group">
                         <span className="b">{data.buttonLabel as string}</span>
