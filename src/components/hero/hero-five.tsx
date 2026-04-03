@@ -31,7 +31,7 @@ export default function HeroFive({ data }: { data?: HeroData }) {
             <div className="section-content">
               <div className="section-title-wrapper">
                 <div className="title-wrapper fade-anim">
-                  <RenderText content={heading} as="h1" className="section-title font-bdogrotesk-regular char-anim" />
+                  <h1 className="section-title font-bdogrotesk-regular char-anim">{heading}</h1>
                 </div>
               </div>
               <div className="text-btn-wrapper fade-anim" data-delay="0.60">

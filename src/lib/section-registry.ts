@@ -50,7 +50,7 @@ export const sectionTypes: SectionType[] = [
     ],
     fields: [
       { name: "subtitle", label: "Subtitle", type: "text" },
-      { name: "heading", label: "Heading", type: "textarea" },
+      { name: "heading", label: "Heading", type: "text" },
       { name: "description", label: "Description", type: "textarea" },
       { name: "primaryButtonLabel", label: "Primary Button Text", type: "text" },
       { name: "primaryButtonLink", label: "Primary Button Link", type: "link" },
@@ -132,7 +132,7 @@ export const sectionTypes: SectionType[] = [
       { label: "Style 5 - Modern", value: "cta-area-5" },
     ],
     fields: [
-      { name: "heading", label: "Heading", type: "textarea" },
+      { name: "heading", label: "Heading", type: "text" },
       { name: "headingLine1", label: "Heading Line 1", type: "text" },
       { name: "headingLine2", label: "Heading Line 2", type: "text" },
       { name: "buttonLabel", label: "Button Text", type: "text" },
@@ -260,7 +260,7 @@ export const sectionTypes: SectionType[] = [
     variants: [{ label: "Default", value: "contact-area" }],
     fields: [
       { name: "subtitle", label: "Subtitle", type: "text" },
-      { name: "heading", label: "Heading", type: "textarea" },
+      { name: "heading", label: "Heading", type: "text" },
       { name: "email", label: "Email", type: "text" },
       { name: "phone", label: "Phone", type: "text" },
       { name: "address", label: "Address", type: "textarea" },
@@ -343,7 +343,7 @@ export const sectionTypes: SectionType[] = [
     ],
     fields: [
       { name: "subtitle", label: "Subtitle", type: "text" },
-      { name: "heading", label: "Heading", type: "textarea" },
+      { name: "heading", label: "Heading", type: "text" },
     ],
   },
   {
@@ -355,7 +355,7 @@ export const sectionTypes: SectionType[] = [
     ],
     fields: [
       { name: "subtitle", label: "Subtitle", type: "text" },
-      { name: "heading", label: "Heading", type: "textarea" },
+      { name: "heading", label: "Heading", type: "text" },
     ],
   },
   {

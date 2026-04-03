@@ -14,7 +14,7 @@ export const puckConfig: Config = {
     Hero: {
       label: "Hero Section",
       fields: {
-        heading: { type: "custom", label: "Main Heading", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <RichTextField value={value} onChange={onChange} /> },
+        heading: { type: "text", label: "Main Heading" },
         description: { type: "custom", label: "Description", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <RichTextField value={value} onChange={onChange} /> },
         buttonLabel: { type: "text", label: "Button Text" },
         buttonLink: { type: "text", label: "Button Link" },
@@ -109,7 +109,7 @@ export const puckConfig: Config = {
       label: "About Section",
       fields: {
         subtitle: { type: "text", label: "Subtitle" },
-        heading: { type: "custom", label: "Heading", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <RichTextField value={value} onChange={onChange} /> },
+        heading: { type: "text", label: "Heading" },
         primaryButtonLabel: { type: "text", label: "Primary Button Text" },
         primaryButtonLink: { type: "text", label: "Primary Button Link" },
         secondaryButtonLabel: { type: "text", label: "Secondary Button Text" },
@@ -207,7 +207,7 @@ export const puckConfig: Config = {
       label: "Contact Section",
       fields: {
         subtitle: { type: "text", label: "Subtitle" },
-        heading: { type: "custom", label: "Heading", render: ({ value, onChange }: { value: string; onChange: (v: string) => void }) => <RichTextField value={value} onChange={onChange} /> },
+        heading: { type: "text", label: "Heading" },
         email: { type: "text", label: "Email Address" },
         submitButtonLabel: { type: "text", label: "Submit Button Text" },
         social1Label: { type: "text", label: "Social 1 - Name" },

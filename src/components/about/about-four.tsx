@@ -36,7 +36,7 @@ export default function AboutFour({ data }: { data?: AboutData }) {
                 </span>
               </div>
               <div className="title-wrapper">
-                <RenderText content={heading} as="h2" className="section-title font-bdogrotesk-regular fade-anim" />
+                <h2 className="section-title font-bdogrotesk-regular fade-anim">{heading}</h2>
                 <div className="btn-wrapper fade-anim">
                   <Link href={primaryButtonLink} className="rr-btn">
                     <span className="btn-wrap">
