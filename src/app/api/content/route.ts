@@ -10,24 +10,28 @@ export async function GET(request: NextRequest) {
   try {
     if (type === "menu") {
       const settings = await getSiteSettings();
+      if (!settings) return NextResponse.json([]);
       const menu = await settings.findOne({ key: "menu" });
       return NextResponse.json(menu?.data || []);
     }
 
     if (type === "settings") {
       const settings = await getSiteSettings();
+      if (!settings) return NextResponse.json({});
       const siteSettings = await settings.findOne({ key: "site-settings" });
       return NextResponse.json(siteSettings?.data || {});
     }
 
     if (type === "pages") {
       const pages = await getPages();
+      if (!pages) return NextResponse.json([]);
       const allPages = await pages.find({}).project({ slug: 1, title: 1, updatedAt: 1, status: 1 }).toArray();
       return NextResponse.json(allPages);
     }
 
     if (slug) {
       const pages = await getPages();
+      if (!pages) return NextResponse.json({ error: "Database unavailable" }, { status: 503 });
       const page = await pages.findOne({ slug });
       if (!page) {
         return NextResponse.json({ error: "Page not found" }, { status: 404 });

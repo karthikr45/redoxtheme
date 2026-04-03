@@ -35,12 +35,13 @@ const defaults: SiteSettingsData = {
 export async function getSiteSettingsData(): Promise<SiteSettingsData> {
   try {
     const settings = await getSiteSettings();
+    if (!settings) return defaults;
     const doc = await settings.findOne({ key: "site-settings" });
     if (doc?.data) {
       return { ...defaults, ...doc.data };
     }
-  } catch {
-    // DB not available
+  } catch (err) {
+    console.error("getSiteSettingsData error:", err);
   }
   return defaults;
 }

@@ -15,6 +15,7 @@ export interface PageData {
 export async function getPageData(slug: string): Promise<PageData | null> {
   try {
     const pages = await getPages();
+    if (!pages) return null;
     const page = await pages.findOne({ slug });
     if (page) {
       return {
@@ -23,8 +24,8 @@ export async function getPageData(slug: string): Promise<PageData | null> {
         sections: page.sections || [],
       };
     }
-  } catch {
-    // DB not available
+  } catch (err) {
+    console.error("getPageData error:", err);
   }
   return null;
 }
