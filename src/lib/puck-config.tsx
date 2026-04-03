@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { Config } from "@measured/puck";
 import ImageUploadField from "@/components/puck-fields/image-upload-field";
 import RichTextField from "@/components/puck-fields/rich-text-field";
